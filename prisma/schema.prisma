@@ -1,0 +1,171 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  GUEST
+  HOST
+  ADMIN
+}
+
+enum AssetCategory {
+  CAR
+  BOAT
+  YACHT
+  RV
+  AIRCRAFT
+  PARTY_RIDE
+}
+
+enum ListingStatus {
+  DRAFT
+  PENDING_REVIEW
+  ACTIVE
+  PAUSED
+  REJECTED
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  DISPUTED
+}
+
+model User {
+  id           String       @id @default(cuid())
+  email        String       @unique
+  name         String
+  passwordHash String
+  role         UserRole     @default(GUEST)
+  verified     Boolean      @default(false)
+  hostProfile  HostProfile?
+  listings     Listing[]
+  bookings     Booking[]    @relation("GuestBookings")
+  reviews      Review[]
+  favorites    Favorite[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model HostProfile {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  businessName   String?
+  phone          String?
+  identityStatus String   @default("UNVERIFIED")
+  payoutStatus   String   @default("NOT_CONNECTED")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Listing {
+  id              String        @id @default(cuid())
+  slug            String        @unique
+  title           String
+  description     String
+  category        AssetCategory
+  status          ListingStatus @default(PENDING_REVIEW)
+  make            String?
+  model           String?
+  year            Int?
+  capacity        Int?
+  partyRideType   String?
+  driverIncluded  Boolean       @default(false)
+  minimumHours    Int?
+  overtimeRate    Float?
+  city            String
+  state           String
+  country         String        @default("US")
+  basePrice       Float
+  securityDeposit Float         @default(0)
+  priceUnit       String        @default("day")
+  instantBook     Boolean       @default(false)
+  delivery        Boolean       @default(false)
+  minDays         Int           @default(1)
+  advanceNoticeHr Int           @default(24)
+  hostId          String
+  host            User          @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  photos          ListingPhoto[]
+  blockedDates    BlockedDate[]
+  pricingRules    PricingRule[]
+  bookings        Booking[]
+  reviews         Review[]
+  favorites       Favorite[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model ListingPhoto {
+  id        String   @id @default(cuid())
+  listingId String
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  url       String
+  position  Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model BlockedDate {
+  id        String   @id @default(cuid())
+  listingId String
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  startAt   DateTime
+  endAt     DateTime
+  reason    String?
+}
+
+model PricingRule {
+  id        String   @id @default(cuid())
+  listingId String
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  startAt   DateTime
+  endAt     DateTime
+  dailyRate Float
+  minDays   Int?
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  listingId String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, listingId])
+}
+
+model Booking {
+  id         String        @id @default(cuid())
+  listingId  String
+  listing    Listing       @relation(fields: [listingId], references: [id])
+  guestId    String
+  guest      User          @relation("GuestBookings", fields: [guestId], references: [id])
+  startAt    DateTime
+  endAt      DateTime
+  subtotal   Float
+  serviceFee Float
+  taxes      Float
+  total      Float
+  status     BookingStatus @default(PENDING)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int
+  body      String?
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  listingId String
+  listing   Listing  @relation(fields: [listingId], references: [id])
+  createdAt DateTime @default(now())
+}
