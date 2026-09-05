@@ -34,16 +34,12 @@ export default function DbListingCard({
           </div>
         )}
 
-        <button
-          type="button"
-          aria-label="Save listing"
-          className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-lg shadow-sm transition hover:scale-105"
-          onClick={(e) => {
-            e.preventDefault();
-          }}
-        >
-          ♡
-        </button>
+       <div
+  aria-label="Save listing"
+  className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-lg shadow-sm"
+>
+  ♡
+</div>
 
         {listing.instantBook && (
           <span className="absolute left-4 top-4 rounded-full bg-[#172033] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#e4c994] shadow">
