@@ -11,9 +11,13 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const result = await get(pathname, {
-    access: "private",
-  });
+ const blobPath = pathname.startsWith("http")
+  ? new URL(pathname).pathname.replace(/^\/+/, "")
+  : pathname;
+
+const result = await get(blobPath, {
+  access: "private",
+});
 
   if (result === null) {
     return new NextResponse("Not found", { status: 404 });
