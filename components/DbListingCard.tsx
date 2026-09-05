@@ -20,7 +20,11 @@ export default function DbListingCard({
     <Link href={`/listing/${listing.slug}`} className="group block">
       <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-neutral-200">
         {image ? (
-          <img src={image} alt={listing.title} className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]" />
+          <img
+  src={`/api/image?pathname=${encodeURIComponent(image)}`}
+  alt={listing.title}
+  className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+/>
         ) : (
           <div className="flex h-full items-center justify-center text-sm text-black/35">No photo yet</div>
         )}
