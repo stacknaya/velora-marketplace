@@ -48,7 +48,11 @@ export default async function ListingPage({
 
         <div className="relative aspect-[16/8] overflow-hidden rounded-[2rem] bg-neutral-200">
           {listing.photos[0]?.url ? (
-            <img src={listing.photos[0].url} alt={listing.title} className="h-full w-full object-cover" />
+           <img
+  src={`/api/image?pathname=${encodeURIComponent(listing.photos[0].url)}`}
+  alt={listing.title}
+  className="h-full w-full object-cover"
+/>
           ) : (
             <div className="flex h-full items-center justify-center text-black/35">No photo uploaded</div>
           )}
