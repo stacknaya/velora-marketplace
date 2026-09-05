@@ -1,6 +1,7 @@
 import { createBooking } from "@/app/actions/bookings";
 import Header from "@/components/Header";
 import { db } from "@/lib/db";
+import BookingForm from "@/components/BookingForm";
 import { notFound } from "next/navigation";
 import { toggleFavorite } from "@/app/actions/favorites";
 import { getCurrentUser } from "@/lib/auth";
@@ -202,40 +203,7 @@ export default async function ListingPage({
                 Security deposit: ${listing.securityDeposit.toLocaleString()}
               </p>
 
-              <form action={createBooking.bind(null, listing.id)}>
-                <div className="mt-6 overflow-hidden rounded-[1.3rem] border border-[#172033]/15">
-                  <div className="grid grid-cols-2 divide-x divide-[#172033]/10">
-                    <label className="p-4">
-                      <span className="block text-[10px] font-black uppercase tracking-wider text-[#172033]/40">
-                        Start
-                      </span>
-                      <input
-                        type="date"
-                        name="startAt"
-                        required
-                        className="mt-1 w-full bg-transparent text-sm font-bold outline-none"
-                      />
-                    </label>
-
-                    <label className="p-4">
-                      <span className="block text-[10px] font-black uppercase tracking-wider text-[#172033]/40">
-                        End
-                      </span>
-                      <input
-                        type="date"
-                        name="endAt"
-                        required
-                        className="mt-1 w-full bg-transparent text-sm font-bold outline-none"
-                      />
-                    </label>
-                  </div>
-                </div>
-
-                <button className="mt-5 w-full rounded-[1.2rem] bg-[#172033] px-5 py-4 font-black text-white transition hover:bg-[#24304a]">
-                  Reserve
-                </button>
-              </form>
-
+             <BookingForm action={createBooking.bind(null, listing.id)} />
               <p className="mt-4 text-center text-xs leading-5 text-[#172033]/45">
                 Your reservation request is submitted securely through Velora.
               </p>
