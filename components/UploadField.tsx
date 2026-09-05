@@ -13,21 +13,36 @@ export default function UploadField({
 
   async function upload(file?: File) {
     if (!file) return;
+
     setStatus("Uploading...");
 
-    const body = new FormData();
-    body.append("file", file);
+    try {
+      const body = new FormData();
+      body.append("file", file);
 
-    const response = await fetch("/api/upload", { method: "POST", body });
-    const data = await response.json();
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body
+      });
 
-    if (!response.ok) {
-      setStatus(data.error || "Upload failed");
-      return;
+      const data = await response.json();
+
+      if (!response.ok) {
+        setStatus(data.error || "Upload failed");
+        return;
+      }
+
+      if (!data.url) {
+        setStatus("Upload completed but no image URL was returned");
+        return;
+      }
+
+      setStatus("Uploaded");
+      onChange(data.url);
+    } catch (error) {
+      console.error("Upload error:", error);
+      setStatus("Upload failed. Please try again.");
     }
-
-    onChange(data.url);
-    setStatus("Uploaded");
   }
 
   return (
@@ -41,10 +56,18 @@ export default function UploadField({
           onChange={(e) => upload(e.target.files?.[0])}
         />
       </label>
-      {status && <p className="mt-3 text-sm text-black/55">{status}</p>}
+
+      {status && (
+        <p className="mt-3 text-sm text-black/55">{status}</p>
+      )}
+
       {value && (
         <div className="mt-4">
-          <img src={value} alt="Uploaded asset" className="max-h-64 rounded-2xl object-cover" />
+          <img
+            src={value}
+            alt="Uploaded asset"
+            className="max-h-64 rounded-2xl object-cover"
+          />
         </div>
       )}
     </div>
