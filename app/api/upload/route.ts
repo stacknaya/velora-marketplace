@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   const filename = `velora/${Date.now()}-${crypto.randomUUID()}.${ext}`;
 
   const blob = await put(filename, file, {
-    access: "public",
+    access: "private",
   });
 
   return NextResponse.json({ url: blob.url });
