@@ -38,8 +38,12 @@ export async function createListing(formData: FormData) {
   const overtimeRate = Number(formData.get("overtimeRate") || 0) || null;
 
   if (!title || !city || !state || basePrice <= 0) {
-    redirect("/host/listings/new?error=Title,+location,+and+price+are+required");
-  }
+  redirect(
+    `/host/listings/new?error=${encodeURIComponent(
+      `Missing: title=${title || "EMPTY"}, city=${city || "EMPTY"}, state=${state || "EMPTY"}, price=${basePrice}`
+    )}`
+  );
+}
 
   const baseSlug = slugify(`${title}-${city}`);
   const slug = `${baseSlug}-${Date.now().toString().slice(-6)}`;
