@@ -60,7 +60,64 @@ const formatDate = (date?: Date) => {
   ...unavailableDates
 ]}
     numberOfMonths={1}
+    classNames={{
+  months: "w-full",
+  month: "w-full",
+  month_caption: "mb-4 flex items-center justify-between",
+  caption_label: "text-lg font-black text-[#172033]",
+  nav: "flex items-center gap-2",
+  button_previous:
+    "h-9 w-9 rounded-full border border-[#172033]/10 bg-white text-[#172033] hover:border-[#c9a96e]",
+  button_next:
+    "h-9 w-9 rounded-full border border-[#172033]/10 bg-white text-[#172033] hover:border-[#c9a96e]",
+  month_grid: "w-full border-collapse",
+  weekdays: "text-[#172033]/40",
+  weekday:
+    "pb-2 text-center text-[10px] font-black uppercase tracking-wider",
+  week: "mt-1",
+  day: "p-1 text-center",
+  day_button:
+    "mx-auto flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold text-[#172033] transition hover:bg-[#f4ead8]",
+  selected:
+    "bg-[#172033] text-white",
+  range_start:
+    "bg-[#172033] text-white",
+  range_end:
+    "bg-[#172033] text-white",
+  range_middle:
+    "bg-[#f4ead8] text-[#172033]",
+  disabled:
+    "cursor-not-allowed text-[#172033]/20 line-through"
+}}
   />
+        <div className="mt-4 flex flex-wrap gap-4 text-xs font-semibold text-[#172033]/55">
+  <div className="flex items-center gap-2">
+    <span className="h-3 w-3 rounded-full bg-[#172033]" />
+    Selected
+  </div>
+
+  <div className="flex items-center gap-2">
+    <span className="h-3 w-3 rounded-full bg-[#f4ead8]" />
+    Selected range
+  </div>
+
+  <div className="flex items-center gap-2">
+    <span className="h-3 w-3 rounded-full border border-[#172033]/10 bg-white opacity-40" />
+    Unavailable
+  </div>
+</div>
+        {range?.from && (
+  <div className="mt-4 rounded-[1.2rem] border border-[#172033]/10 bg-[#fffaf1] p-4">
+    <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#9a7a45]">
+      Selected dates
+    </p>
+
+    <p className="mt-2 text-sm font-black text-[#172033]">
+      {range.from.toLocaleDateString()}
+      {range.to ? ` → ${range.to.toLocaleDateString()}` : ""}
+    </p>
+  </div>
+)}
 
   <input
     type="hidden"
