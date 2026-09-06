@@ -123,7 +123,7 @@ export default async function ListingPage({
 
           {/* Hero image */}
           <div className="overflow-hidden rounded-[2.4rem] border border-[#172033]/10 bg-white shadow-sm">
-            <div className="relative aspect-[16/8] bg-neutral-200">
+            <div className="relative h-[420px] bg-neutral-200">
               {image ? (
                 <img
                   src={`/api/image?pathname=${encodeURIComponent(image)}`}
