@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { cancelPendingBooking } from "@/app/actions/bookings";
 
 export default async function TripsPage() {
   const user = await getCurrentUser();
@@ -138,18 +139,31 @@ export default async function TripsPage() {
                         </div>
                       </div>
 
-                      <div className="mt-6 flex items-center justify-between border-t border-[#172033]/10 pt-5">
-                        <p className="text-sm text-[#172033]/50">
-                          Booking #{booking.id.slice(-8).toUpperCase()}
-                        </p>
+                      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[#172033]/10 pt-5">
+  <p className="text-sm text-[#172033]/50">
+    Booking #{booking.id.slice(-8).toUpperCase()}
+  </p>
 
-                        <a
-                          href={`/listing/${booking.listing.slug}`}
-                          className="text-sm font-black text-[#9a7a45]"
-                        >
-                          View listing →
-                        </a>
-                      </div>
+  <div className="flex items-center gap-3">
+    {booking.status === "PENDING" && (
+      <form action={cancelPendingBooking.bind(null, booking.id)}>
+        <button
+          type="submit"
+          className="rounded-full border border-red-200 px-4 py-2 text-sm font-black text-red-600 transition hover:bg-red-50"
+        >
+          Cancel request
+        </button>
+      </form>
+    )}
+
+    <a
+      href={`/listing/${booking.listing.slug}`}
+      className="text-sm font-black text-[#9a7a45]"
+    >
+      View listing →
+    </a>
+  </div>
+</div>
                     </div>
                   </div>
                 );
