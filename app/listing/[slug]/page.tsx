@@ -81,8 +81,9 @@ export default async function ListingPage({
       <Header />
 
       <main className="min-h-screen bg-[#f7f3ec] text-[#172033]">
-        <div className="mx-auto max-w-[1400px] px-5 py-8 md:px-8 lg:px-10">
-          {/* Heading */}
+        <div className="mx-auto max-w-[1480px] px-5 py-8 md:px-8 lg:px-10">
+
+          {/* Listing heading */}
           <div className="mb-7 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <div className="flex flex-wrap items-center gap-3">
@@ -118,8 +119,8 @@ export default async function ListingPage({
             </form>
           </div>
 
-          {/* Hero */}
-          <div className="overflow-hidden rounded-[2.3rem] border border-[#172033]/10 bg-white shadow-sm">
+          {/* Hero image */}
+          <div className="overflow-hidden rounded-[2.4rem] border border-[#172033]/10 bg-white shadow-sm">
             <div className="relative aspect-[16/8] bg-neutral-200">
               {image ? (
                 <img
@@ -139,10 +140,13 @@ export default async function ListingPage({
             </div>
           </div>
 
-          {/* Main layout */}
-          <div className="mt-10 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_500px]">
-            {/* Left column */}
+          {/* Main content */}
+          <div className="mt-10 grid items-start gap-10 xl:grid-cols-[minmax(0,1fr)_540px]">
+
+            {/* LEFT COLUMN */}
             <section className="min-w-0">
+
+              {/* About */}
               <div className="border-b border-[#172033]/10 pb-8">
                 <p className="text-xs font-black uppercase tracking-[0.2em] text-[#9a7a45]">
                   The experience
@@ -168,7 +172,8 @@ export default async function ListingPage({
                 </h2>
 
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-[1.6rem] border border-[#172033]/10 bg-white p-5">
+
+                  <div className="rounded-[1.7rem] border border-[#172033]/10 bg-white p-6">
                     <span className="text-[11px] font-black uppercase tracking-widest text-[#172033]/40">
                       Make / Model
                     </span>
@@ -180,7 +185,7 @@ export default async function ListingPage({
                     </p>
                   </div>
 
-                  <div className="rounded-[1.6rem] border border-[#172033]/10 bg-white p-5">
+                  <div className="rounded-[1.7rem] border border-[#172033]/10 bg-white p-6">
                     <span className="text-[11px] font-black uppercase tracking-widest text-[#172033]/40">
                       Year
                     </span>
@@ -190,7 +195,7 @@ export default async function ListingPage({
                     </p>
                   </div>
 
-                  <div className="rounded-[1.6rem] border border-[#172033]/10 bg-white p-5">
+                  <div className="rounded-[1.7rem] border border-[#172033]/10 bg-white p-6">
                     <span className="text-[11px] font-black uppercase tracking-widest text-[#172033]/40">
                       Minimum booking
                     </span>
@@ -201,7 +206,7 @@ export default async function ListingPage({
                     </p>
                   </div>
 
-                  <div className="rounded-[1.6rem] border border-[#172033]/10 bg-white p-5">
+                  <div className="rounded-[1.7rem] border border-[#172033]/10 bg-white p-6">
                     <span className="text-[11px] font-black uppercase tracking-widest text-[#172033]/40">
                       Advance notice
                     </span>
@@ -245,10 +250,12 @@ export default async function ListingPage({
               </div>
             </section>
 
-            {/* Reservation card */}
-            <aside className="w-full overflow-hidden rounded-[2.2rem] border border-[#172033]/10 bg-white p-6 shadow-xl lg:sticky lg:top-28">
+            {/* RIGHT RESERVATION COLUMN */}
+            <aside className="w-full min-w-0 rounded-[2.2rem] border border-[#172033]/10 bg-white p-6 shadow-xl xl:sticky xl:top-28">
+
+              {/* Price header */}
               <div className="border-b border-[#172033]/10 pb-5">
-                <div className="flex flex-wrap items-end justify-between gap-3">
+                <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
                     <div className="flex items-end gap-2">
                       <span className="text-3xl font-black">
@@ -274,19 +281,19 @@ export default async function ListingPage({
                 </div>
               </div>
 
-              <div className="min-w-0">
-                <BookingForm
-                  action={createBooking.bind(null, listing.id)}
-                  advanceNoticeHr={listing.advanceNoticeHr}
-                  minDays={listing.minDays}
-                  unavailableRanges={unavailableRanges}
-                />
-              </div>
+              {/* Booking calendar */}
+              <BookingForm
+                action={createBooking.bind(null, listing.id)}
+                advanceNoticeHr={listing.advanceNoticeHr}
+                minDays={listing.minDays}
+                unavailableRanges={unavailableRanges}
+              />
 
               <p className="mt-4 text-center text-xs leading-5 text-[#172033]/45">
                 Your reservation request is submitted securely through Velora.
               </p>
 
+              {/* Pricing summary */}
               <div className="mt-6 border-t border-[#172033]/10 pt-5">
                 <div className="flex items-center justify-between gap-4 text-sm">
                   <span className="text-[#172033]/55">
@@ -310,7 +317,8 @@ export default async function ListingPage({
                 </div>
               </div>
 
-              <div className="mt-5 rounded-[1.2rem] bg-[#f7f3ec] p-4">
+              {/* Protection */}
+              <div className="mt-5 rounded-[1.3rem] bg-[#f7f3ec] p-4">
                 <p className="text-[10px] font-black uppercase tracking-[0.17em] text-[#9a7a45]">
                   Booking protection
                 </p>
