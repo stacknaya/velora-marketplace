@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { getCurrentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export default async function ListingPage({
   params
@@ -78,6 +79,7 @@ export default async function ListingPage({
 
   return (
     <>
+<ScrollToTop />
       <Header />
 
       <main className="min-h-screen bg-[#f7f3ec] text-[#172033]">
