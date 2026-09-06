@@ -141,8 +141,7 @@ export default async function ListingPage({
           </div>
 
           {/* Main content */}
-          <div className="mt-10 grid items-start gap-10 xl:grid-cols-[minmax(0,1fr)_540px]">
-
+<div className="mt-10 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_600px]">
             {/* LEFT COLUMN */}
             <section className="min-w-0">
 
