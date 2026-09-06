@@ -73,6 +73,21 @@ export default async function TripsPage() {
             <div className="mt-10 grid gap-6">
               {bookings.map((booking) => {
                 const image = booking.listing.photos[0]?.url;
+              const hoursUntilTrip =
+  (booking.startAt.getTime() - Date.now()) / (1000 * 60 * 60);
+
+let refundPct = 0;
+
+if (hoursUntilTrip >= 168) {
+  refundPct = 90;
+} else if (hoursUntilTrip >= 48) {
+  refundPct = 80;
+} else if (hoursUntilTrip > 0) {
+  refundPct = 50;
+}
+
+const estimatedRefund =
+  booking.total * (refundPct / 100);
 
                 return (
                   <div
@@ -147,41 +162,71 @@ export default async function TripsPage() {
     Booking #{booking.id.slice(-8).toUpperCase()}
   </p>
 
-  <div className="flex items-center gap-3">
-    {booking.status === "PENDING" && (
-      <form action={cancelPendingBooking.bind(null, booking.id)}>
-        <button
-          type="submit"
-          className="rounded-full border border-red-200 px-4 py-2 text-sm font-black text-red-600 transition hover:bg-red-50"
+ <div className="flex flex-wrap items-center justify-end gap-3">
+  {booking.status === "PENDING" && (
+    <form action={cancelPendingBooking.bind(null, booking.id)}>
+      <button
+        type="submit"
+        className="rounded-full border border-red-200 px-4 py-2 text-sm font-black text-red-600 transition hover:bg-red-50"
+      >
+        Cancel booking
+      </button>
+    </form>
+  )}
+
+  {booking.status === "CONFIRMED" &&
+    !booking.cancellationRequested &&
+    hoursUntilTrip > 0 && (
+      <div className="text-right">
+        <p className="mb-2 text-xs text-[#172033]/60">
+          Estimated refund:{" "}
+          <span className="font-black text-[#172033]">
+            ${estimatedRefund.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            })}{" "}
+            ({refundPct}%)
+          </span>
+        </p>
+
+        <form
+          action={requestBookingCancellation.bind(
+            null,
+            booking.id
+          )}
         >
-          Cancel booking
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="rounded-full border border-[#c9a96e] px-4 py-2 text-sm font-black text-[#9a7a45] transition hover:bg-[#f4ead8]"
+          >
+            Request cancellation
+          </button>
+        </form>
+      </div>
     )}
-    {booking.status === "CONFIRMED" && !booking.cancellationRequested && (
-  <form action={requestBookingCancellation.bind(null, booking.id)}>
-    <button
-      type="submit"
-      className="rounded-full border border-[#c9a96e] px-4 py-2 text-sm font-black text-[#9a7a45] transition hover:bg-[#f4ead8]"
-    >
-      Request cancellation
-    </button>
-  </form>
-)}
 
-{booking.status === "CONFIRMED" && booking.cancellationRequested && (
-  <span className="rounded-full bg-[#f4ead8] px-4 py-2 text-sm font-black text-[#9a7a45]">
-    Cancellation requested
-  </span>
-)}
+  {booking.status === "CONFIRMED" &&
+    booking.cancellationRequested && (
+      <div className="text-right">
+        <span className="rounded-full bg-[#f4ead8] px-4 py-2 text-sm font-black text-[#9a7a45]">
+          Cancellation requested
+        </span>
 
-    <a
-      href={`/listing/${booking.listing.slug}`}
-      className="text-sm font-black text-[#9a7a45]"
-    >
-      View listing →
-    </a>
-  </div>
+        {booking.cancellationRefundPct && (
+          <p className="mt-2 text-xs text-[#172033]/55">
+            Requested refund: {booking.cancellationRefundPct}%
+          </p>
+        )}
+      </div>
+    )}
+
+  <a
+    href={`/listing/${booking.listing.slug}`}
+    className="text-sm font-black text-[#9a7a45]"
+  >
+    View listing →
+  </a>
+</div>
 </div>
                     </div>
                   </div>
