@@ -157,7 +157,7 @@ export default function BookingForm({
             mode="range"
             selected={range}
             onSelect={setRange}
-            numberOfMonths={1}
+            className="w-full"
             showOutsideDays={false}
             disabled={[
               { before: earliestBookingDate },
@@ -174,58 +174,57 @@ export default function BookingForm({
                 "!opacity-100 [&>button]:!text-[#172033] [&>button]:line-through [&>button]:decoration-2 [&>button]:decoration-[#172033]/70"
             }}
             classNames={{
-              months: "w-full",
-              month: "w-full",
+  months: "w-full",
+  month: "w-full",
 
-              month_caption:
-                "relative mb-6 flex min-h-10 items-center justify-center",
+  month_caption:
+    "relative mb-7 flex min-h-12 items-center justify-center",
 
-              caption_label:
-                "text-2xl font-black tracking-tight text-[#172033]",
+  caption_label:
+    "text-[28px] font-black tracking-tight text-[#172033]",
 
-              nav:
-                "absolute left-0 top-0 flex items-center gap-2",
+  nav:
+    "absolute left-0 top-0 flex items-center gap-3",
 
-              button_previous:
-                "flex h-10 w-10 items-center justify-center rounded-full border border-[#172033]/10 bg-white text-[#172033] shadow-sm transition hover:border-[#c9a96e] hover:bg-[#fffaf1]",
+  button_previous:
+    "flex h-12 w-12 items-center justify-center rounded-full border border-[#172033]/10 bg-white text-[#172033] shadow-sm transition hover:border-[#c9a96e] hover:bg-[#fffaf1]",
 
-              button_next:
-                "flex h-10 w-10 items-center justify-center rounded-full border border-[#172033]/10 bg-white text-[#172033] shadow-sm transition hover:border-[#c9a96e] hover:bg-[#fffaf1]",
+  button_next:
+    "flex h-12 w-12 items-center justify-center rounded-full border border-[#172033]/10 bg-white text-[#172033] shadow-sm transition hover:border-[#c9a96e] hover:bg-[#fffaf1]",
 
-              month_grid:
-                "w-full border-collapse",
+  month_grid:
+    "w-full border-separate border-spacing-y-2",
 
-              weekdays:
-                "text-[#172033]/45",
+  weekdays:
+    "text-[#172033]/45",
 
-              weekday:
-                "pb-3 text-center text-[11px] font-black uppercase tracking-[0.12em]",
+  weekday:
+    "pb-3 text-center text-xs font-black uppercase tracking-[0.14em]",
 
-              week:
-                "mt-1",
+  week:
+    "mt-1",
 
-              day:
-                "p-1 text-center",
+  day:
+    "p-1 text-center",
 
-              day_button:
-                "mx-auto flex h-11 w-11 items-center justify-center rounded-full text-sm font-black text-[#172033] transition hover:bg-[#f4ead8]",
+  day_button:
+    "mx-auto flex h-12 w-12 items-center justify-center rounded-full text-base font-black text-[#172033] transition hover:bg-[#f4ead8]",
 
-              selected:
-                "[&>button]:bg-[#172033] [&>button]:text-white",
+  selected:
+    "[&>button]:bg-[#172033] [&>button]:text-white",
 
-              range_start:
-                "[&>button]:bg-[#172033] [&>button]:text-white [&>button]:rounded-full",
+  range_start:
+    "[&>button]:bg-[#172033] [&>button]:text-white [&>button]:rounded-full",
 
-              range_end:
-                "[&>button]:bg-[#172033] [&>button]:text-white [&>button]:rounded-full",
+  range_end:
+    "[&>button]:bg-[#172033] [&>button]:text-white [&>button]:rounded-full",
 
-              range_middle:
-                "[&>button]:bg-[#f4ead8] [&>button]:text-[#172033] [&>button]:rounded-full",
+  range_middle:
+    "[&>button]:bg-[#f4ead8] [&>button]:text-[#172033] [&>button]:rounded-full",
 
-              disabled:
-                "cursor-not-allowed"
-            }}
-          />
+  disabled:
+    "cursor-not-allowed"
+}}          />
         </div>
 
         {/* Selected dates summary */}
