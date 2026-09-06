@@ -6,9 +6,11 @@ import "react-day-picker/style.css";
 
 export default function BookingForm({
   action,
+  advanceNoticeHr = 0,
   unavailableRanges = []
 }: {
   action: (formData: FormData) => void;
+  advanceNoticeHr?: number;
   unavailableRanges?: {
     start: string;
     end: string;
@@ -17,6 +19,10 @@ export default function BookingForm({
  const [range, setRange] = useState<DateRange | undefined>();
   const today = new Date();
 today.setHours(0, 0, 0, 0);
+  const earliestBookingDate = new Date();
+earliestBookingDate.setHours(
+  earliestBookingDate.getHours() + advanceNoticeHr
+);
 
 const unavailableDates = unavailableRanges.map((range) => ({
   from: new Date(`${range.start}T00:00:00`),
@@ -35,10 +41,10 @@ const formatDate = (date?: Date) => {
     mode="range"
     selected={range}
     onSelect={setRange}
-    disabled={[
-      { before: today },
-      ...unavailableDates
-    ]}
+   disabled={[
+  { before: earliestBookingDate },
+  ...unavailableDates
+]}
     numberOfMonths={1}
   />
 
