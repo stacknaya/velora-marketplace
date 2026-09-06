@@ -67,17 +67,18 @@ export default function BookingForm({
     <form action={action}>
       <div className="mt-6 rounded-[1.8rem] border border-[#172033]/10 bg-white p-5 shadow-sm">
 
-        {/* Calendar guide */}
-        <div className="rounded-[1.4rem] border border-[#172033]/10 bg-[#fffaf1] p-4">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#9a7a45]">
+        {/* Compact calendar guide */}
+        <div className="rounded-[1.5rem] border border-[#172033]/10 bg-[#fffaf1] p-4">
+          <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#9a7a45]">
             Calendar guide
           </p>
 
-          <div className="mt-4 grid grid-cols-2 gap-4">
+          <div className="mt-4 grid grid-cols-2 gap-x-5 gap-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f1efe9] text-xs font-black text-[#172033]/25">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f1efe9] text-xs font-black text-[#172033]/25">
                 1
-              </div>
+              </span>
+
               <div>
                 <p className="text-xs font-black text-[#172033]">
                   Past dates
@@ -89,9 +90,10 @@ export default function BookingForm({
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center text-xs font-black text-[#172033] line-through decoration-2 decoration-[#172033]/70">
+              <span className="flex h-9 w-9 items-center justify-center text-xs font-black text-[#172033] line-through decoration-2 decoration-[#172033]/70">
                 14
-              </div>
+              </span>
+
               <div>
                 <p className="text-xs font-black text-[#172033]">
                   Unavailable
@@ -103,9 +105,10 @@ export default function BookingForm({
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center text-xs font-black text-[#172033]">
+              <span className="flex h-9 w-9 items-center justify-center text-xs font-black text-[#172033]">
                 15
-              </div>
+              </span>
+
               <div>
                 <p className="text-xs font-black text-[#172033]">
                   Available
@@ -117,9 +120,10 @@ export default function BookingForm({
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#172033] text-xs font-black text-white">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#172033] text-xs font-black text-white">
                 9
-              </div>
+              </span>
+
               <div>
                 <p className="text-xs font-black text-[#172033]">
                   Selected
@@ -131,9 +135,10 @@ export default function BookingForm({
             </div>
 
             <div className="col-span-2 flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f4ead8] text-xs font-black text-[#172033]">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f4ead8] text-xs font-black text-[#172033]">
                 10
-              </div>
+              </span>
+
               <div>
                 <p className="text-xs font-black text-[#172033]">
                   Selected range
@@ -147,12 +152,13 @@ export default function BookingForm({
         </div>
 
         {/* Calendar */}
-        <div className="mt-5">
+        <div className="mt-6">
           <DayPicker
             mode="range"
             selected={range}
             onSelect={setRange}
             numberOfMonths={1}
+            showOutsideDays={false}
             disabled={[
               { before: earliestBookingDate },
               ...unavailableDates
@@ -170,46 +176,62 @@ export default function BookingForm({
             classNames={{
               months: "w-full",
               month: "w-full",
+
               month_caption:
-                "mb-5 flex items-center justify-between",
+                "relative mb-6 flex min-h-10 items-center justify-center",
+
               caption_label:
-                "text-xl font-black text-[#172033]",
+                "text-2xl font-black tracking-tight text-[#172033]",
+
               nav:
-                "flex items-center gap-2",
+                "absolute left-0 top-0 flex items-center gap-2",
+
               button_previous:
                 "flex h-10 w-10 items-center justify-center rounded-full border border-[#172033]/10 bg-white text-[#172033] shadow-sm transition hover:border-[#c9a96e] hover:bg-[#fffaf1]",
+
               button_next:
                 "flex h-10 w-10 items-center justify-center rounded-full border border-[#172033]/10 bg-white text-[#172033] shadow-sm transition hover:border-[#c9a96e] hover:bg-[#fffaf1]",
+
               month_grid:
                 "w-full border-collapse",
+
               weekdays:
                 "text-[#172033]/45",
+
               weekday:
-                "pb-3 text-center text-[10px] font-black uppercase tracking-[0.12em]",
+                "pb-3 text-center text-[11px] font-black uppercase tracking-[0.12em]",
+
               week:
                 "mt-1",
+
               day:
                 "p-1 text-center",
+
               day_button:
-                "mx-auto flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-[#172033] transition hover:bg-[#f4ead8]",
+                "mx-auto flex h-11 w-11 items-center justify-center rounded-full text-sm font-black text-[#172033] transition hover:bg-[#f4ead8]",
+
               selected:
                 "[&>button]:bg-[#172033] [&>button]:text-white",
+
               range_start:
                 "[&>button]:bg-[#172033] [&>button]:text-white [&>button]:rounded-full",
+
               range_end:
                 "[&>button]:bg-[#172033] [&>button]:text-white [&>button]:rounded-full",
+
               range_middle:
                 "[&>button]:bg-[#f4ead8] [&>button]:text-[#172033] [&>button]:rounded-full",
+
               disabled:
                 "cursor-not-allowed"
             }}
           />
         </div>
 
-        {/* Selected dates */}
+        {/* Selected dates summary */}
         {range?.from && (
-          <div className="mt-5 rounded-[1.3rem] border border-[#172033]/10 bg-[#fffaf1] p-4">
-            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#9a7a45]">
+          <div className="mt-6 rounded-[1.4rem] border border-[#172033]/10 bg-[#fffaf1] p-4">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#9a7a45]">
               Selected dates
             </p>
 
@@ -259,7 +281,7 @@ export default function BookingForm({
             !range?.to ||
             !minimumBookingMet
           }
-          className="mt-5 w-full rounded-[1.2rem] bg-[#172033] px-5 py-4 font-black text-white transition hover:bg-[#24304a] disabled:cursor-not-allowed disabled:opacity-40"
+          className="mt-6 w-full rounded-[1.2rem] bg-[#172033] px-5 py-4 text-base font-black text-white transition hover:bg-[#24304a] disabled:cursor-not-allowed disabled:opacity-40"
         >
           Reserve
         </button>
