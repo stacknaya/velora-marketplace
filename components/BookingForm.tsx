@@ -69,9 +69,12 @@ const formatDate = (date?: Date) => {
   />
 
   <input
-    type="hidden"
-    name="endAt"
-   {range?.from && range?.to && !minimumNightsMet && (
+  type="hidden"
+  name="endAt"
+  value={formatDate(range?.to)}
+/>
+
+{range?.from && range?.to && !minimumNightsMet && (
   <p className="mt-3 text-sm font-semibold text-red-600">
     Minimum booking is {minDays} day{minDays === 1 ? "" : "s"}.
   </p>
