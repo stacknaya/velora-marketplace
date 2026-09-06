@@ -155,6 +155,7 @@ export default function BookingForm({
         <div className="mt-6">
           <DayPicker
             mode="range"
+            excludeDisabled
             selected={range}
             onSelect={setRange}
             showOutsideDays={false}
