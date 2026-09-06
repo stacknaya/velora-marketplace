@@ -2,7 +2,10 @@ import Header from "@/components/Header";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { cancelPendingBooking } from "@/app/actions/bookings";
+import {
+  cancelPendingBooking,
+  requestBookingCancellation
+} from "@/app/actions/bookings";
 
 export default async function TripsPage() {
   const user = await getCurrentUser();
@@ -155,6 +158,22 @@ export default async function TripsPage() {
         </button>
       </form>
     )}
+    {booking.status === "CONFIRMED" && !booking.cancellationRequested && (
+  <form action={requestBookingCancellation.bind(null, booking.id)}>
+    <button
+      type="submit"
+      className="rounded-full border border-[#c9a96e] px-4 py-2 text-sm font-black text-[#9a7a45] transition hover:bg-[#f4ead8]"
+    >
+      Request cancellation
+    </button>
+  </form>
+)}
+
+{booking.status === "CONFIRMED" && booking.cancellationRequested && (
+  <span className="rounded-full bg-[#f4ead8] px-4 py-2 text-sm font-black text-[#9a7a45]">
+    Cancellation requested
+  </span>
+)}
 
     <a
       href={`/listing/${booking.listing.slug}`}
