@@ -227,3 +227,66 @@ export async function cancelPendingBooking(bookingId: string) {
 
   redirect("/trips");
 }
+export async function requestBookingCancellation(bookingId: string) {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
+  const booking = await db.booking.findUnique({
+    where: { id: bookingId },
+  });
+
+  if (!booking || booking.guestId !== user.id) {
+    redirect("/trips");
+  }
+
+  // Cancellation requests are only for confirmed bookings
+  if (booking.status !== "CONFIRMED") {
+    redirect("/trips");
+  }
+
+  // Prevent duplicate cancellation requests
+  if (booking.cancellationRequested) {
+    redirect("/trips");
+  }
+
+  const now = new Date();
+  const tripStart = new Date(booking.startAt);
+
+  const hoursUntilTrip =
+    (tripStart.getTime() - now.getTime()) / (1000 * 60 * 60);
+
+  // Trip has already started
+  if (hoursUntilTrip <= 0) {
+    redirect("/trips");
+  }
+
+  let refundPct: number;
+
+  if (hoursUntilTrip >= 168) {
+    // 7 days or more
+    refundPct = 90;
+  } else if (hoursUntilTrip >= 48) {
+    // 48 hours to less than 7 days
+    refundPct = 80;
+  } else {
+    // Less than 48 hours
+    refundPct = 50;
+  }
+
+  await db.booking.update({
+    where: { id: bookingId },
+    data: {
+      cancellationRequested: true,
+      cancellationRequestedAt: now,
+      cancellationRefundPct: refundPct,
+    },
+  });
+
+  revalidatePath("/trips");
+  revalidatePath("/host/reservations");
+
+  redirect("/trips");
+}
