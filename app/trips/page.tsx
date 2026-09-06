@@ -151,7 +151,7 @@ export default async function TripsPage() {
           type="submit"
           className="rounded-full border border-red-200 px-4 py-2 text-sm font-black text-red-600 transition hover:bg-red-50"
         >
-          Cancel request
+          Cancel booking
         </button>
       </form>
     )}
