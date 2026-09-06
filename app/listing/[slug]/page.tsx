@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { getCurrentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
+import ListingPhotoViewer from "@/components/ListingPhotoViewer";
 import ScrollToTop from "@/components/ScrollToTop";
 
 export default async function ListingPage({
@@ -122,25 +123,17 @@ export default async function ListingPage({
           </div>
 
           {/* Hero image */}
-          <div className="mx-auto max-w-[1200px] overflow-hidden rounded-[2.4rem] border border-[#172033]/10 bg-neutral-200">
-            <div className="relative h-[420px] bg-neutral-200">
-              {image ? (
-                <img
-                  src={`/api/image?pathname=${encodeURIComponent(image)}`}
-                  alt={listing.title}
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <div className="flex h-full items-center justify-center text-[#172033]/35">
-                  No photo uploaded
-                </div>
-              )}
-
-              <div className="absolute bottom-5 left-5 rounded-full bg-white/95 px-4 py-2 text-xs font-black shadow">
-                Premium Velora listing
-              </div>
-            </div>
-          </div>
+          {/* Hero image */}
+{image ? (
+  <ListingPhotoViewer
+    image={image}
+    title={listing.title}
+  />
+) : (
+  <div className="mx-auto flex h-[300px] w-full max-w-[900px] items-center justify-center rounded-[2rem] bg-neutral-200 text-[#172033]/35">
+    No photo uploaded
+  </div>
+)}
 
           {/* Main content */}
 <div className="mt-10 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_600px]">
