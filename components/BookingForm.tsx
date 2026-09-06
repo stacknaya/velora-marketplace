@@ -159,6 +159,13 @@ export default function BookingForm({
             selected={range}
             onSelect={setRange}
             showOutsideDays={false}
+            startMonth={
+  new Date(
+    earliestBookingDate.getFullYear(),
+    earliestBookingDate.getMonth(),
+    1
+  )
+}
 className="relative w-full"            
             disabled={[
               { before: earliestBookingDate },
