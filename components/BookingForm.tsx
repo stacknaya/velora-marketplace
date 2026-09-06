@@ -59,6 +59,15 @@ const formatDate = (date?: Date) => {
   { before: earliestBookingDate },
   ...unavailableDates
 ]}
+    modifiers={{
+  past: { before: earliestBookingDate },
+  unavailable: unavailableDates
+}}
+    modifiersClassNames={{
+  past: "opacity-30 [&>button]:text-[#172033]/30",
+  unavailable:
+    "[&>button]:text-[#172033] [&>button]:line-through [&>button]:decoration-2 [&>button]:decoration-[#172033]/60"
+}}
     numberOfMonths={1}
     classNames={{
   months: "w-full",
@@ -87,7 +96,8 @@ range_end:
 range_middle:
   "[&>button]:bg-[#f4ead8] [&>button]:text-[#172033] [&>button]:rounded-none",
   disabled:
-  "cursor-not-allowed opacity-35 [&>button]:bg-[#ece8e1] [&>button]:text-[#172033]/35 [&>button]:line-through"
+  "cursor-not-allowed opacity-30 [&>button]:text-[#172033]/30",
+     
 }}
   />
         <div className="mt-4 flex flex-wrap gap-4 text-xs font-semibold text-[#172033]/55">
