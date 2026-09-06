@@ -196,3 +196,34 @@ export async function declineBooking(bookingId: string) {
 
   redirect("/host/reservations");
 }
+export async function cancelPendingBooking(bookingId: string) {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
+  const booking = await db.booking.findUnique({
+    where: { id: bookingId },
+  });
+
+  if (!booking || booking.guestId !== user.id) {
+    redirect("/trips");
+  }
+
+  if (booking.status !== "PENDING") {
+    redirect("/trips");
+  }
+
+  await db.booking.update({
+    where: { id: bookingId },
+    data: {
+      status: "CANCELLED",
+    },
+  });
+
+  revalidatePath("/trips");
+  revalidatePath("/host/reservations");
+
+  redirect("/trips");
+}
