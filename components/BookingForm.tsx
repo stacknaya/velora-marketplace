@@ -65,85 +65,85 @@ export default function BookingForm({
 
   return (
     <form action={action}>
-      <div className="mt-6 rounded-[1.8rem] border border-[#172033]/10 bg-white p-5 shadow-sm">
+      <div className="mt-6 rounded-[1.8rem] border border-[#172033]/10 bg-white p-6 shadow-sm">
 
         {/* Compact calendar guide */}
-        <div className="rounded-[1.5rem] border border-[#172033]/10 bg-[#fffaf1] p-4">
+        <div className="rounded-[1.6rem] border border-[#172033]/10 bg-[#fffaf1] p-5">
           <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#9a7a45]">
             Calendar guide
           </p>
 
-          <div className="mt-4 grid grid-cols-2 gap-x-5 gap-y-4">
+          <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-5">
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f1efe9] text-xs font-black text-[#172033]/25">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#f1efe9] text-xs font-black text-[#172033]/25">
                 1
               </span>
 
               <div>
-                <p className="text-xs font-black text-[#172033]">
+                <p className="text-xm font-black text-[#172033]">
                   Past dates
                 </p>
-                <p className="text-[11px] text-[#172033]/45">
+                <p className="text-xs text-[#172033]/45">
                   Faded
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center text-xs font-black text-[#172033] line-through decoration-2 decoration-[#172033]/70">
+              <span className="flex h-11 w-11 items-center justify-center text-xs font-black text-[#172033] line-through decoration-2 decoration-[#172033]/70">
                 14
               </span>
 
               <div>
-                <p className="text-xs font-black text-[#172033]">
+                <p className="text-xm font-black text-[#172033]">
                   Unavailable
                 </p>
-                <p className="text-[11px] text-[#172033]/45">
+                <p className="text-xs text-[#172033]/45">
                   Crossed out
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center text-xs font-black text-[#172033]">
+              <span className="flex h-11 w-11 items-center justify-center text-xs font-black text-[#172033]">
                 15
               </span>
 
               <div>
-                <p className="text-xs font-black text-[#172033]">
+                <p className="text-xm font-black text-[#172033]">
                   Available
                 </p>
-                <p className="text-[11px] text-[#172033]/45">
+                <p className="text-xs text-[#172033]/45">
                   Normal
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#172033] text-xs font-black text-white">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#172033] text-xs font-black text-white">
                 9
               </span>
 
               <div>
-                <p className="text-xs font-black text-[#172033]">
+                <p className="text-xm font-black text-[#172033]">
                   Selected
                 </p>
-                <p className="text-[11px] text-[#172033]/45">
+                <p className="text-xs text-[#172033]/45">
                   Navy
                 </p>
               </div>
             </div>
 
             <div className="col-span-2 flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f4ead8] text-xs font-black text-[#172033]">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#f4ead8] text-xs font-black text-[#172033]">
                 10
               </span>
 
               <div>
-                <p className="text-xs font-black text-[#172033]">
+                <p className="text-xm font-black text-[#172033]">
                   Selected range
                 </p>
-                <p className="text-[11px] text-[#172033]/45">
+                <p className="text-xs text-[#172033]/45">
                   Champagne
                 </p>
               </div>
