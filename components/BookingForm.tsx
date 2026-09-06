@@ -6,11 +6,13 @@ import "react-day-picker/style.css";
 
 export default function BookingForm({
   action,
-  advanceNoticeHr = 0,
-  unavailableRanges = []
+advanceNoticeHr = 0,
+minDays = 1,
+unavailableRanges = []
 }: {
   action: (formData: FormData) => void;
   advanceNoticeHr?: number;
+  minDays?: number;
   unavailableRanges?: {
     start: string;
     end: string;
@@ -33,6 +35,18 @@ const formatDate = (date?: Date) => {
   if (!date) return "";
   return date.toISOString().split("T")[0];
 };
+  const minimumNightsMet = (() => {
+  if (!range?.from || !range?.to) return false;
+
+  const difference =
+    range.to.getTime() - range.from.getTime();
+
+  const days = Math.ceil(
+    difference / (1000 * 60 * 60 * 24)
+  );
+
+  return days >= minDays;
+})();
 
   return (
     <form action={action}>
@@ -57,12 +71,17 @@ const formatDate = (date?: Date) => {
   <input
     type="hidden"
     name="endAt"
+   {range?.from && range?.to && !minimumNightsMet && (
+  <p className="mt-3 text-sm font-semibold text-red-600">
+    Minimum booking is {minDays} day{minDays === 1 ? "" : "s"}.
+  </p>
+)}
     value={formatDate(range?.to)}
   />
 </div>
       <button
         type="submit"
-disabled={!range?.from || !range?.to}
+disabled={!range?.from || !range?.to || !minimumNightsMet}
         className="mt-5 w-full rounded-[1.2rem] bg-[#172033] px-5 py-4 font-black text-white transition hover:bg-[#24304a] disabled:cursor-not-allowed disabled:opacity-40"
       >
         Reserve
