@@ -241,6 +241,7 @@ export async function requestBookingCancellation(bookingId: string) {
   if (!booking || booking.guestId !== user.id) {
     redirect("/trips");
   }
+}
   export async function approveCancellationRequest(bookingId: string) {
   const user = await getCurrentUser();
 
