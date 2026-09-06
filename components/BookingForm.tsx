@@ -77,7 +77,7 @@ const formatDate = (date?: Date) => {
   week: "mt-1",
   day: "p-1 text-center",
   day_button:
-    "mx-auto flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold text-[#172033] transition hover:bg-[#f4ead8]",
+  "mx-auto flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold text-[#172033] transition hover:bg-[#f4ead8] hover:text-[#172033]"
   selected:
   "[&>button]:bg-[#172033] [&>button]:text-white",
   range_start:
@@ -87,7 +87,7 @@ range_end:
 range_middle:
   "[&>button]:bg-[#f4ead8] [&>button]:text-[#172033] [&>button]:rounded-none",
   disabled:
-    "cursor-not-allowed text-[#172033]/20 line-through"
+  "cursor-not-allowed opacity-35 [&>button]:bg-[#ece8e1] [&>button]:text-[#172033]/35 [&>button]:line-through"
 }}
   />
         <div className="mt-4 flex flex-wrap gap-4 text-xs font-semibold text-[#172033]/55">
