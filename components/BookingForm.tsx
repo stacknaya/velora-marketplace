@@ -65,88 +65,89 @@ export default function BookingForm({
 
   return (
     <form action={action}>
-      <div className="mt-6 grid gap-6 lg:grid-cols-[210px_1fr]">
-        {/* Side legend */}
-        <aside className="rounded-[1.8rem] border border-[#172033]/10 bg-[#fffaf1] p-5">
+      <div className="mt-6 rounded-[1.8rem] border border-[#172033]/10 bg-white p-5 shadow-sm">
+
+        {/* Calendar guide */}
+        <div className="rounded-[1.4rem] border border-[#172033]/10 bg-[#fffaf1] p-4">
           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#9a7a45]">
             Calendar guide
           </p>
 
-          <div className="mt-5 space-y-6">
-            <div className="flex items-center gap-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f1efe9] text-sm font-black text-[#172033]/25">
+          <div className="mt-4 grid grid-cols-2 gap-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f1efe9] text-xs font-black text-[#172033]/25">
                 1
               </div>
               <div>
-                <p className="text-sm font-black text-[#172033]">
+                <p className="text-xs font-black text-[#172033]">
                   Past dates
                 </p>
-                <p className="text-xs text-[#172033]/50">
-                  Faded and disabled
+                <p className="text-[11px] text-[#172033]/45">
+                  Faded
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="flex h-10 w-10 items-center justify-center text-sm font-black text-[#172033] line-through decoration-2 decoration-[#172033]/70">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center text-xs font-black text-[#172033] line-through decoration-2 decoration-[#172033]/70">
                 14
               </div>
               <div>
-                <p className="text-sm font-black text-[#172033]">
-                  Unavailable dates
+                <p className="text-xs font-black text-[#172033]">
+                  Unavailable
                 </p>
-                <p className="text-xs text-[#172033]/50">
+                <p className="text-[11px] text-[#172033]/45">
                   Crossed out
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="flex h-10 w-10 items-center justify-center text-sm font-black text-[#172033]">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center text-xs font-black text-[#172033]">
                 15
               </div>
               <div>
-                <p className="text-sm font-black text-[#172033]">
-                  Available dates
+                <p className="text-xs font-black text-[#172033]">
+                  Available
                 </p>
-                <p className="text-xs text-[#172033]/50">
-                  Normal style
+                <p className="text-[11px] text-[#172033]/45">
+                  Normal
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#172033] text-sm font-black text-white">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#172033] text-xs font-black text-white">
                 9
               </div>
               <div>
-                <p className="text-sm font-black text-[#172033]">
-                  Selected date
+                <p className="text-xs font-black text-[#172033]">
+                  Selected
                 </p>
-                <p className="text-xs text-[#172033]/50">
-                  Navy circle
+                <p className="text-[11px] text-[#172033]/45">
+                  Navy
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f4ead8] text-sm font-black text-[#172033]">
+            <div className="col-span-2 flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f4ead8] text-xs font-black text-[#172033]">
                 10
               </div>
               <div>
-                <p className="text-sm font-black text-[#172033]">
+                <p className="text-xs font-black text-[#172033]">
                   Selected range
                 </p>
-                <p className="text-xs text-[#172033]/50">
-                  Champagne background
+                <p className="text-[11px] text-[#172033]/45">
+                  Champagne
                 </p>
               </div>
             </div>
           </div>
-        </aside>
+        </div>
 
         {/* Calendar */}
-        <div className="rounded-[1.8rem] border border-[#172033]/10 bg-white p-5 shadow-sm">
+        <div className="mt-5">
           <DayPicker
             mode="range"
             selected={range}
@@ -203,83 +204,65 @@ export default function BookingForm({
                 "cursor-not-allowed"
             }}
           />
+        </div>
 
-          <div className="mt-5 flex flex-wrap gap-5 border-t border-[#172033]/10 pt-4 text-xs font-semibold text-[#172033]/60">
-            <div className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full bg-[#172033]" />
-              Selected
-            </div>
+        {/* Selected dates */}
+        {range?.from && (
+          <div className="mt-5 rounded-[1.3rem] border border-[#172033]/10 bg-[#fffaf1] p-4">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#9a7a45]">
+              Selected dates
+            </p>
 
-            <div className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full bg-[#f4ead8]" />
-              Selected range
-            </div>
+            <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm font-black text-[#172033]">
+                {range.from.toLocaleDateString()}
+                {range.to
+                  ? ` → ${range.to.toLocaleDateString()}`
+                  : ""}
+              </p>
 
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-black text-[#172033] line-through decoration-2">
-                14
-              </span>
-              Unavailable
+              {range.to && (
+                <p className="text-sm font-bold text-[#172033]/60">
+                  {bookingDays} day
+                  {bookingDays === 1 ? "" : "s"}
+                </p>
+              )}
             </div>
           </div>
+        )}
 
-          {range?.from && (
-            <div className="mt-5 rounded-[1.3rem] border border-[#172033]/10 bg-[#fffaf1] p-4">
-              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#9a7a45]">
-                Selected dates
-              </p>
+        <input
+          type="hidden"
+          name="startAt"
+          value={formatDate(range?.from)}
+        />
 
-              <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
-                <p className="text-sm font-black text-[#172033]">
-                  {range.from.toLocaleDateString()}
-                  {range.to
-                    ? ` → ${range.to.toLocaleDateString()}`
-                    : ""}
-                </p>
+        <input
+          type="hidden"
+          name="endAt"
+          value={formatDate(range?.to)}
+        />
 
-                {range.to && (
-                  <p className="text-sm font-bold text-[#172033]/60">
-                    {bookingDays} day
-                    {bookingDays === 1 ? "" : "s"}
-                  </p>
-                )}
-              </div>
-            </div>
+        {range?.from &&
+          range?.to &&
+          !minimumBookingMet && (
+            <p className="mt-3 text-sm font-semibold text-red-600">
+              Minimum booking is {minDays} day
+              {minDays === 1 ? "" : "s"}.
+            </p>
           )}
 
-          <input
-            type="hidden"
-            name="startAt"
-            value={formatDate(range?.from)}
-          />
-
-          <input
-            type="hidden"
-            name="endAt"
-            value={formatDate(range?.to)}
-          />
-
-          {range?.from &&
-            range?.to &&
-            !minimumBookingMet && (
-              <p className="mt-3 text-sm font-semibold text-red-600">
-                Minimum booking is {minDays} day
-                {minDays === 1 ? "" : "s"}.
-              </p>
-            )}
-
-          <button
-            type="submit"
-            disabled={
-              !range?.from ||
-              !range?.to ||
-              !minimumBookingMet
-            }
-            className="mt-5 w-full rounded-[1.2rem] bg-[#172033] px-5 py-4 font-black text-white transition hover:bg-[#24304a] disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            Reserve
-          </button>
-        </div>
+        <button
+          type="submit"
+          disabled={
+            !range?.from ||
+            !range?.to ||
+            !minimumBookingMet
+          }
+          className="mt-5 w-full rounded-[1.2rem] bg-[#172033] px-5 py-4 font-black text-white transition hover:bg-[#24304a] disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          Reserve
+        </button>
       </div>
     </form>
   );
