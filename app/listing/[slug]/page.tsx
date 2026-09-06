@@ -17,9 +17,35 @@ export default async function ListingPage({
   const listing = await db.listing.findUnique({
     where: { slug },
     include: {
-      host: { select: { name: true, verified: true } },
-      photos: { orderBy: { position: "asc" } }
+  host: {
+    select: {
+      name: true,
+      verified: true
     }
+  },
+  photos: {
+    orderBy: {
+      position: "asc"
+    }
+  },
+  bookings: {
+    where: {
+      status: {
+        in: ["PENDING", "CONFIRMED"]
+      }
+    },
+    select: {
+      startAt: true,
+      endAt: true
+    }
+  },
+  blockedDates: {
+    select: {
+      startAt: true,
+      endAt: true
+    }
+  }
+}
   });
 
   if (!listing) notFound();
