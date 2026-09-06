@@ -2,7 +2,9 @@ import HostShell from "@/components/HostShell";
 import { db } from "@/lib/db";
 import {
   approveBooking,
-  declineBooking
+  declineBooking,
+  approveCancellationRequest,
+  declineCancellationRequest
 } from "@/app/actions/bookings";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -164,6 +166,51 @@ export default async function HostReservationsPage() {
     </form>
   </div>
 )}
+                    {booking.status === "CONFIRMED" &&
+  booking.cancellationRequested && (
+    <div className="mt-6 rounded-[1.5rem] border border-[#c9a96e]/50 bg-[#f4ead8] p-5">
+      <p className="text-xs font-black uppercase tracking-[0.15em] text-[#9a7a45]">
+        Cancellation requested
+      </p>
+
+      <p className="mt-2 text-sm text-[#172033]/70">
+        Guest refund:{" "}
+        <span className="font-black text-[#172033]">
+          {booking.cancellationRefundPct}%
+        </span>
+      </p>
+
+      <div className="mt-4 flex flex-wrap gap-3">
+        <form
+          action={approveCancellationRequest.bind(
+            null,
+            booking.id
+          )}
+        >
+          <button
+            type="submit"
+            className="rounded-full bg-[#172033] px-5 py-3 text-sm font-black text-white transition hover:bg-[#24304a]"
+          >
+            Approve cancellation
+          </button>
+        </form>
+
+        <form
+          action={declineCancellationRequest.bind(
+            null,
+            booking.id
+          )}
+        >
+          <button
+            type="submit"
+            className="rounded-full border border-red-200 bg-white px-5 py-3 text-sm font-black text-red-600 transition hover:bg-red-50"
+          >
+            Decline cancellation
+          </button>
+        </form>
+      </div>
+    </div>
+  )}
 
                     <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-[#172033]/10 pt-5">
                       <p className="text-sm text-[#172033]/50">
