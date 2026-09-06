@@ -137,9 +137,10 @@ export default async function HostReservationsPage({
                   key={booking.id}
                   className="overflow-hidden rounded-[1.4rem] border border-[#172033]/10 bg-white shadow-sm"
                 >
-                  <div className="flex flex-col xl:grid xl:grid-cols-[165px_minmax(190px,1fr)_270px_250px_130px] xl:items-center">
+                 <div className="flex flex-col gap-3 lg:grid lg:grid-cols-[120px_minmax(160px,1fr)_210px_190px_110px] lg:items-center">
                     {/* PHOTO */}
-                    <div className="h-[125px] w-full bg-neutral-200 xl:h-[128px]">
+                   <div className="h-[105px] w-full overflow-hidden bg-neutral-200 lg:h-[105px]">
+                     <div className="h-[125px] w-full bg-neutral-200 xl:h-[128px]">
                       {image ? (
                         <img
                           src={`/api/image?pathname=${encodeURIComponent(image)}`}
@@ -166,24 +167,7 @@ export default async function HostReservationsPage({
                           </span>
                         )}
 
-                        {booking.status === "CONFIRMED" &&
-                          !booking.cancellationRequested && (
-                            <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-emerald-700">
-                              Confirmed
-                            </span>
-                          )}
-
-                        {booking.status === "CANCELLED" && (
-                          <span className="rounded-full bg-red-50 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-red-600">
-                            Cancelled
-                          </span>
-                        )}
-
-                        {booking.status === "COMPLETED" && (
-                          <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-slate-600">
-                            Completed
-                          </span>
-                        )}
+                        
                       </div>
 
                       <p className="mt-2 truncate text-sm text-[#172033]/60">
