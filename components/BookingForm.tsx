@@ -157,8 +157,8 @@ export default function BookingForm({
             mode="range"
             selected={range}
             onSelect={setRange}
-            className="w-full"
             showOutsideDays={false}
+className="relative w-full"            
             disabled={[
               { before: earliestBookingDate },
               ...unavailableDates
@@ -183,8 +183,8 @@ export default function BookingForm({
   caption_label:
     "text-[28px] font-black tracking-tight text-[#172033]",
 
-  nav:
-    "absolute left-0 top-0 flex items-center gap-3",
+ nav:
+  "absolute left-0 top-0 z-20 flex items-center gap-3",
 
   button_previous:
     "flex h-12 w-12 items-center justify-center rounded-full border border-[#172033]/10 bg-white text-[#172033] shadow-sm transition hover:border-[#c9a96e] hover:bg-[#fffaf1]",
