@@ -154,6 +154,10 @@ model Booking {
   taxes      Float
   total      Float
   status     BookingStatus @default(PENDING)
+cancellationRequestedAt DateTime?
+cancellationRefundPct   Int?
+cancellationReason      String?
+cancellationRequested   Boolean @default(false)
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
 }
