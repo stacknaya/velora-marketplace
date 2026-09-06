@@ -79,13 +79,13 @@ const formatDate = (date?: Date) => {
   day_button:
     "mx-auto flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold text-[#172033] transition hover:bg-[#f4ead8]",
   selected:
-    "bg-[#172033] text-white",
+  "[&>button]:bg-[#172033] [&>button]:text-white",
   range_start:
-    "bg-[#172033] text-white",
-  range_end:
-    "bg-[#172033] text-white",
-  range_middle:
-    "bg-[#f4ead8] text-[#172033]",
+  "[&>button]:bg-[#172033] [&>button]:text-white [&>button]:rounded-full",
+range_end:
+  "[&>button]:bg-[#172033] [&>button]:text-white [&>button]:rounded-full",
+range_middle:
+  "[&>button]:bg-[#f4ead8] [&>button]:text-[#172033] [&>button]:rounded-none",
   disabled:
     "cursor-not-allowed text-[#172033]/20 line-through"
 }}
