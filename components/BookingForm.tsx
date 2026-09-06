@@ -13,6 +13,7 @@ export default function BookingForm({
   }[];
 }) {
   const [startDate, setStartDate] = useState("");
+  const today = new Date().toISOString().split("T")[0];
 
   const isDateUnavailable = (date: string) => {
   return unavailableRanges.some((range) => {
