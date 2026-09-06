@@ -77,7 +77,7 @@ const formatDate = (date?: Date) => {
   week: "mt-1",
   day: "p-1 text-center",
   day_button:
-  "mx-auto flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold text-[#172033] transition hover:bg-[#f4ead8] hover:text-[#172033]"
+  "mx-auto flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold text-[#172033] transition hover:bg-[#f4ead8] hover:text-[#172033]",
   selected:
   "[&>button]:bg-[#172033] [&>button]:text-white",
   range_start:
