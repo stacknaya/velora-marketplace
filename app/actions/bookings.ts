@@ -127,3 +127,72 @@ redirect(`/listing/${listing.slug}?error=Those+dates+are+not+available`);
 
   redirect("/trips");
 }
+export async function approveBooking(bookingId: string) {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
+  const booking = await db.booking.findUnique({
+    where: { id: bookingId },
+    include: {
+      listing: true,
+    },
+  });
+
+  if (!booking || booking.listing.hostId !== user.id) {
+    redirect("/host/reservations");
+  }
+
+  if (booking.status !== "PENDING") {
+    redirect("/host/reservations");
+  }
+
+  await db.booking.update({
+    where: { id: bookingId },
+    data: {
+      status: "CONFIRMED",
+    },
+  });
+
+  revalidatePath("/host/reservations");
+  revalidatePath("/trips");
+
+  redirect("/host/reservations");
+}
+
+export async function declineBooking(bookingId: string) {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
+  const booking = await db.booking.findUnique({
+    where: { id: bookingId },
+    include: {
+      listing: true,
+    },
+  });
+
+  if (!booking || booking.listing.hostId !== user.id) {
+    redirect("/host/reservations");
+  }
+
+  if (booking.status !== "PENDING") {
+    redirect("/host/reservations");
+  }
+
+  await db.booking.update({
+    where: { id: bookingId },
+    data: {
+      status: "CANCELLED",
+    },
+  });
+
+  revalidatePath("/host/reservations");
+  revalidatePath("/trips");
+
+  redirect("/host/reservations");
+}
