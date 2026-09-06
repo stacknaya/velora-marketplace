@@ -79,8 +79,6 @@ const formatDate = (date?: Date) => {
     Minimum booking is {minDays} day{minDays === 1 ? "" : "s"}.
   </p>
 )}
-    value={formatDate(range?.to)}
-  />
 </div>
       <button
         type="submit"
