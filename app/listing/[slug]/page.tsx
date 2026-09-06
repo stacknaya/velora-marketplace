@@ -232,6 +232,7 @@ export default async function ListingPage({
             <BookingForm
   action={createBooking.bind(null, listing.id)}
               advanceNoticeHr={listing.advanceNoticeHr}
+              minDays={listing.minDays}
   unavailableRanges={[
     ...listing.bookings.map((booking) => ({
       start: booking.startAt.toISOString().split("T")[0],
