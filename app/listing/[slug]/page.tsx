@@ -229,7 +229,19 @@ export default async function ListingPage({
                 Security deposit: ${listing.securityDeposit.toLocaleString()}
               </p>
 
-             <BookingForm action={createBooking.bind(null, listing.id)} />
+            <BookingForm
+  action={createBooking.bind(null, listing.id)}
+  unavailableRanges={[
+    ...listing.bookings.map((booking) => ({
+      start: booking.startAt.toISOString().split("T")[0],
+      end: booking.endAt.toISOString().split("T")[0]
+    })),
+    ...listing.blockedDates.map((blocked) => ({
+      start: blocked.startAt.toISOString().split("T")[0],
+      end: blocked.endAt.toISOString().split("T")[0]
+    }))
+  ]}
+/>
               <p className="mt-4 text-center text-xs leading-5 text-[#172033]/45">
                 Your reservation request is submitted securely through Velora.
               </p>
