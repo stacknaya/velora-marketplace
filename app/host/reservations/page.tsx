@@ -1,5 +1,9 @@
 import HostShell from "@/components/HostShell";
 import { db } from "@/lib/db";
+import {
+  approveBooking,
+  declineBooking
+} from "@/app/actions/bookings";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
@@ -139,6 +143,27 @@ export default async function HostReservationsPage() {
                         </p>
                       </div>
                     </div>
+                    {booking.status === "PENDING" && (
+  <div className="mt-6 flex flex-wrap gap-3">
+    <form action={approveBooking.bind(null, booking.id)}>
+      <button
+        type="submit"
+        className="rounded-full bg-[#172033] px-5 py-3 text-sm font-black text-white transition hover:bg-[#24304a]"
+      >
+        Approve
+      </button>
+    </form>
+
+    <form action={declineBooking.bind(null, booking.id)}>
+      <button
+        type="submit"
+        className="rounded-full border border-red-200 bg-white px-5 py-3 text-sm font-black text-red-600 transition hover:bg-red-50"
+      >
+        Decline
+      </button>
+    </form>
+  </div>
+)}
 
                     <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-[#172033]/10 pt-5">
                       <p className="text-sm text-[#172033]/50">
