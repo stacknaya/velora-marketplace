@@ -3,13 +3,22 @@
 import { useState } from "react";
 
 export default function BookingForm({
-  action
+  action,
+  unavailableRanges = []
 }: {
   action: (formData: FormData) => void;
+  unavailableRanges?: {
+    start: string;
+    end: string;
+  }[];
 }) {
   const [startDate, setStartDate] = useState("");
 
-  const today = new Date().toISOString().split("T")[0];
+  const isDateUnavailable = (date: string) => {
+  return unavailableRanges.some((range) => {
+    return date >= range.start && date < range.end;
+  });
+};
 
   return (
     <form action={action}>
@@ -28,6 +37,12 @@ export default function BookingForm({
               min={today}
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
+              onBlur={(e) => {
+  if (isDateUnavailable(e.target.value)) {
+    setStartDate("");
+    alert("That start date is not available.");
+  }
+}}
               className="mt-1 w-full bg-transparent text-sm font-bold outline-none"
             />
           </label>
@@ -43,6 +58,18 @@ export default function BookingForm({
               required
               min={startDate || today}
               disabled={!startDate}
+              onChange={(e) => {
+  const endDate = e.target.value;
+
+  const crossesUnavailableRange = unavailableRanges.some((range) => {
+    return startDate < range.end && endDate > range.start;
+  });
+
+  if (crossesUnavailableRange) {
+    e.target.value = "";
+    alert("Those dates include unavailable dates. Please choose another end date.");
+  }
+}}
               className="mt-1 w-full bg-transparent text-sm font-bold outline-none disabled:cursor-not-allowed disabled:opacity-40"
             />
           </label>
