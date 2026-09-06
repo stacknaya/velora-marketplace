@@ -81,8 +81,7 @@ export default async function ListingPage({
       <Header />
 
       <main className="min-h-screen bg-[#f7f3ec] text-[#172033]">
-        <div className="mx-auto max-w-[1500px] px-5 py-8 md:px-8 lg:px-10">
-
+        <div className="mx-auto max-w-[1400px] px-5 py-8 md:px-8 lg:px-10">
           {/* Heading */}
           <div className="mb-7 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
@@ -102,23 +101,17 @@ export default async function ListingPage({
                 {listing.title}
               </h1>
 
-              <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-[#172033]/60">
-                <span>
-                  {listing.city}, {listing.state}
-                </span>
-
-                <span>•</span>
-
-                <span>
-                  Hosted by {listing.host.name}
-                </span>
-              </div>
+              <p className="mt-3 text-sm text-[#172033]/60">
+                {listing.city}, {listing.state}
+                <span className="mx-2">•</span>
+                Hosted by {listing.host.name}
+              </p>
             </div>
 
             <form action={toggleFavorite.bind(null, listing.id)}>
               <button
                 type="submit"
-                className="rounded-full border border-[#172033]/15 bg-white px-5 py-3 text-sm font-black text-[#172033] transition hover:border-[#c9a96e] hover:bg-[#fffaf1]"
+                className="rounded-full border border-[#172033]/15 bg-white px-5 py-3 text-sm font-black transition hover:border-[#c9a96e] hover:bg-[#fffaf1]"
               >
                 {favorite ? "♥ Saved" : "♡ Save"}
               </button>
@@ -126,8 +119,8 @@ export default async function ListingPage({
           </div>
 
           {/* Hero */}
-          <div className="overflow-hidden rounded-[2.4rem] border border-[#172033]/10 bg-white shadow-sm">
-            <div className="relative aspect-[16/7] bg-neutral-200">
+          <div className="overflow-hidden rounded-[2.3rem] border border-[#172033]/10 bg-white shadow-sm">
+            <div className="relative aspect-[16/8] bg-neutral-200">
               {image ? (
                 <img
                   src={`/api/image?pathname=${encodeURIComponent(image)}`}
@@ -140,16 +133,15 @@ export default async function ListingPage({
                 </div>
               )}
 
-              <div className="absolute bottom-5 left-5 rounded-full bg-white/95 px-4 py-2 text-xs font-black text-[#172033] shadow">
+              <div className="absolute bottom-5 left-5 rounded-full bg-white/95 px-4 py-2 text-xs font-black shadow">
                 Premium Velora listing
               </div>
             </div>
           </div>
 
           {/* Main layout */}
-          <div className="mt-10 grid items-start gap-8 2xl:grid-cols-[minmax(0,1fr)_560px]">
-
-            {/* Left side */}
+          <div className="mt-10 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_500px]">
+            {/* Left column */}
             <section className="min-w-0">
               <div className="border-b border-[#172033]/10 pb-8">
                 <p className="text-xs font-black uppercase tracking-[0.2em] text-[#9a7a45]">
@@ -176,7 +168,7 @@ export default async function ListingPage({
                 </h2>
 
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-[1.7rem] border border-[#172033]/10 bg-white p-6">
+                  <div className="rounded-[1.6rem] border border-[#172033]/10 bg-white p-5">
                     <span className="text-[11px] font-black uppercase tracking-widest text-[#172033]/40">
                       Make / Model
                     </span>
@@ -188,7 +180,7 @@ export default async function ListingPage({
                     </p>
                   </div>
 
-                  <div className="rounded-[1.7rem] border border-[#172033]/10 bg-white p-6">
+                  <div className="rounded-[1.6rem] border border-[#172033]/10 bg-white p-5">
                     <span className="text-[11px] font-black uppercase tracking-widest text-[#172033]/40">
                       Year
                     </span>
@@ -198,7 +190,7 @@ export default async function ListingPage({
                     </p>
                   </div>
 
-                  <div className="rounded-[1.7rem] border border-[#172033]/10 bg-white p-6">
+                  <div className="rounded-[1.6rem] border border-[#172033]/10 bg-white p-5">
                     <span className="text-[11px] font-black uppercase tracking-widest text-[#172033]/40">
                       Minimum booking
                     </span>
@@ -209,7 +201,7 @@ export default async function ListingPage({
                     </p>
                   </div>
 
-                  <div className="rounded-[1.7rem] border border-[#172033]/10 bg-white p-6">
+                  <div className="rounded-[1.6rem] border border-[#172033]/10 bg-white p-5">
                     <span className="text-[11px] font-black uppercase tracking-widest text-[#172033]/40">
                       Advance notice
                     </span>
@@ -253,48 +245,48 @@ export default async function ListingPage({
               </div>
             </section>
 
-            {/* Reservation section */}
-            <aside className="w-full rounded-[2.2rem] border border-[#172033]/10 bg-white p-5 shadow-xl sm:p-7 2xl:sticky 2xl:top-28">
+            {/* Reservation card */}
+            <aside className="w-full overflow-hidden rounded-[2.2rem] border border-[#172033]/10 bg-white p-6 shadow-xl lg:sticky lg:top-28">
+              <div className="border-b border-[#172033]/10 pb-5">
+                <div className="flex flex-wrap items-end justify-between gap-3">
+                  <div>
+                    <div className="flex items-end gap-2">
+                      <span className="text-3xl font-black">
+                        ${listing.basePrice.toLocaleString()}
+                      </span>
 
-              {/* Price */}
-              <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[#172033]/10 pb-5">
-                <div>
-                  <div className="flex items-end gap-2">
-                    <span className="text-3xl font-black">
-                      ${listing.basePrice.toLocaleString()}
-                    </span>
+                      <span className="pb-1 text-sm font-semibold text-[#172033]/50">
+                        / {listing.priceUnit}
+                      </span>
+                    </div>
 
-                    <span className="pb-1 text-sm font-semibold text-[#172033]/50">
-                      / {listing.priceUnit}
-                    </span>
+                    <p className="mt-2 text-sm text-[#172033]/50">
+                      Security deposit: $
+                      {listing.securityDeposit.toLocaleString()}
+                    </p>
                   </div>
 
-                  <p className="mt-2 text-sm text-[#172033]/50">
-                    Security deposit: $
-                    {listing.securityDeposit.toLocaleString()}
-                  </p>
+                  {listing.instantBook && (
+                    <span className="rounded-full bg-[#f4ead8] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-[#9a7a45]">
+                      Instant Book
+                    </span>
+                  )}
                 </div>
-
-                {listing.instantBook && (
-                  <span className="rounded-full bg-[#f4ead8] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-[#9a7a45]">
-                    Instant Book
-                  </span>
-                )}
               </div>
 
-              {/* Booking calendar */}
-              <BookingForm
-                action={createBooking.bind(null, listing.id)}
-                advanceNoticeHr={listing.advanceNoticeHr}
-                minDays={listing.minDays}
-                unavailableRanges={unavailableRanges}
-              />
+              <div className="min-w-0">
+                <BookingForm
+                  action={createBooking.bind(null, listing.id)}
+                  advanceNoticeHr={listing.advanceNoticeHr}
+                  minDays={listing.minDays}
+                  unavailableRanges={unavailableRanges}
+                />
+              </div>
 
               <p className="mt-4 text-center text-xs leading-5 text-[#172033]/45">
                 Your reservation request is submitted securely through Velora.
               </p>
 
-              {/* Pricing */}
               <div className="mt-6 border-t border-[#172033]/10 pt-5">
                 <div className="flex items-center justify-between gap-4 text-sm">
                   <span className="text-[#172033]/55">
@@ -318,16 +310,15 @@ export default async function ListingPage({
                 </div>
               </div>
 
-              {/* Protection note */}
-              <div className="mt-5 rounded-[1.3rem] bg-[#f7f3ec] p-4">
+              <div className="mt-5 rounded-[1.2rem] bg-[#f7f3ec] p-4">
                 <p className="text-[10px] font-black uppercase tracking-[0.17em] text-[#9a7a45]">
                   Booking protection
                 </p>
 
                 <p className="mt-2 text-xs leading-5 text-[#172033]/55">
-                  Velora checks pending reservations, confirmed bookings,
-                  host-blocked dates, advance notice, and minimum booking
-                  requirements before accepting a reservation request.
+                  Availability is checked against pending reservations,
+                  confirmed bookings, host-blocked dates, advance notice,
+                  and minimum booking requirements.
                 </p>
               </div>
             </aside>
