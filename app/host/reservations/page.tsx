@@ -247,7 +247,7 @@ export default async function HostReservationsPage({
                         </div>
 
                         <div>
-                          <<p className="whitespace-nowrap text-[12px] font-medium">
+                          <p className="whitespace-nowrap text-[12px] font-medium">
                             {formatDate(
                               booking.startAt
                             )}
