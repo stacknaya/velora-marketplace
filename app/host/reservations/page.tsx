@@ -136,9 +136,9 @@ export default async function HostReservationsPage({
                   key={booking.id}
                   className="overflow-hidden rounded-[1.35rem] border border-[#172033]/10 bg-white shadow-sm"
                 >
-                  <div className="grid min-h-[118px] grid-cols-1 items-center gap-4 p-4 xl:grid-cols-[165px_minmax(220px,1fr)_280px_240px_150px]">
+                  <div className="grid min-h-[108px] grid-cols-1 items-center gap-3 p-3 lg:grid-cols-[100px_minmax(130px,1fr)_170px_145px_105px]">
                     {/* PHOTO */}
-                    <div className="h-[108px] overflow-hidden rounded-[1rem] bg-neutral-200">
+                    <div className="h-[92px] overflow-hidden rounded-[1rem] bg-neutral-200">
                       {image ? (
                         <img
                           src={`/api/image?pathname=${encodeURIComponent(image)}`}
