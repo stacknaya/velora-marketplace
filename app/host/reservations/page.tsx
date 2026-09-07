@@ -430,7 +430,7 @@ export default async function HostReservationsPage({
                        <a
   href={`/listing/${booking.listing.slug}`}
   aria-label={`View ${booking.listing.title}`}
-  className="ml-auto flex h-10 w-8 shrink-0 items-center justify-end text-[#172033]/65 transition hover:text-[#172033]"
+  className="ml-auto mr-4 flex h-10 w-8 shrink-0 items-center justify-center text-[#172033]/65 transition hover:text-[#172033]"
 >
   <svg
     width="9"
