@@ -429,9 +429,25 @@ export default async function HostReservationsPage({
 
                        <a
   href={`/listing/${booking.listing.slug}`}
-  className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center text-[22px] font-medium text-[#172033]/65 transition hover:text-[#172033]"
+  aria-label={`View ${booking.listing.title}`}
+  className="ml-auto flex h-10 w-8 shrink-0 items-center justify-end text-[#172033]/65 transition hover:text-[#172033]"
 >
-  &gt;
+  <svg
+    width="9"
+    height="16"
+    viewBox="0 0 9 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <path
+      d="M1 1L8 8L1 15"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
 </a>
                       </div>
                     </div>
