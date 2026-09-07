@@ -136,9 +136,9 @@ export default async function HostReservationsPage({
                   key={booking.id}
                   className="overflow-hidden rounded-[1.35rem] border border-[#172033]/10 bg-white shadow-sm"
                 >
-                  <div className="grid min-h-[108px] grid-cols-1 items-center gap-3 p-3 lg:grid-cols-[110px_minmax(150px,1fr)_190px_minmax(160px,190px)_110px]">
+                  <div className="grid min-h-[118px] grid-cols-1 items-center gap-4 p-4 xl:grid-cols-[165px_minmax(220px,1fr)_280px_240px_150px]">
                     {/* PHOTO */}
-                    <div className="h-[95px] overflow-hidden rounded-[1rem] bg-neutral-200">
+                    <div className="h-[108px] overflow-hidden rounded-[1rem] bg-neutral-200">
                       {image ? (
                         <img
                           src={`/api/image?pathname=${encodeURIComponent(image)}`}
@@ -159,30 +159,7 @@ export default async function HostReservationsPage({
                           {booking.listing.title}
                         </h2>
 
-                        {booking.status === "PENDING" && (
-                          <span className="rounded-full bg-[#f4ead8] px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-[#9a7a45]">
-                            Pending
-                          </span>
-                        )}
-
-                        {booking.status === "CONFIRMED" && (
-                          <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-emerald-700">
-                            Confirmed
-                          </span>
-                        )}
-
-                        {booking.status === "CANCELLED" && (
-                          <span className="rounded-full bg-red-50 px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-red-600">
-                            Cancelled
-                          </span>
-                        )}
-
-                        {booking.status === "COMPLETED" && (
-                          <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-slate-600">
-                            Completed
-                          </span>
-                        )}
-                      </div>
+                                              </div>
 
                       <p className="mt-1.5 truncate text-xs text-[#172033]/60">
                         Guest: {booking.guest.name}
@@ -222,6 +199,24 @@ export default async function HostReservationsPage({
 
                     {/* ACTIONS */}
                     <div className="min-w-0">
+                      {booking.status === "CONFIRMED" &&
+  !booking.cancellationRequested && (
+    <span className="inline-flex rounded-full bg-emerald-50 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-emerald-700">
+      Confirmed
+    </span>
+  )}
+
+{booking.status === "CANCELLED" && (
+  <span className="inline-flex rounded-full bg-red-50 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-red-600">
+    Cancelled
+  </span>
+)}
+
+{booking.status === "COMPLETED" && (
+  <span className="inline-flex rounded-full bg-slate-100 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-slate-600">
+    Completed
+  </span>
+)}
                       {booking.status === "PENDING" && (
                         <div>
                           <p className="mb-2 text-[9px] font-black uppercase tracking-wider text-[#9a7a45]">
@@ -306,15 +301,24 @@ export default async function HostReservationsPage({
                           </div>
                         )}
 
-                      {booking.status !== "PENDING" &&
-                        !(
-                          booking.status === "CONFIRMED" &&
-                          booking.cancellationRequested
-                        ) && (
-                          <p className="text-[11px] text-[#172033]/35">
-                            No action required
-                          </p>
-                        )}
+                      {booking.status === "CONFIRMED" &&
+  !booking.cancellationRequested && (
+    <span className="inline-flex rounded-full bg-emerald-50 px-4 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-emerald-700">
+      Confirmed
+    </span>
+  )}
+
+{booking.status === "CANCELLED" && (
+  <span className="inline-flex rounded-full bg-red-50 px-4 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-red-600">
+    Cancelled
+  </span>
+)}
+
+{booking.status === "COMPLETED" && (
+  <span className="inline-flex rounded-full bg-slate-100 px-4 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-slate-600">
+    Completed
+  </span>
+)}
                     </div>
 
                     {/* TOTAL */}
