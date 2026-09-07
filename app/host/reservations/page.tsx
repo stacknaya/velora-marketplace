@@ -182,7 +182,7 @@ export default async function HostReservationsPage({
                   key={booking.id}
                   className="overflow-hidden rounded-[20px] border border-[#172033]/10 bg-white shadow-[0_1px_4px_rgba(23,32,51,0.04)]"
                 >
-                  <div className="grid grid-cols-1 items-center gap-3 p-3 lg:grid-cols-[115px_minmax(180px,1fr)_260px_190px_135px]">
+                  <div className="grid grid-cols-1 items-center gap-2.5 p-3 lg:grid-cols-[110px_175px_235px_185px_130px]">
                     {/* IMAGE */}
                     <div className="h-[84px] overflow-hidden rounded-[13px] bg-neutral-200">
                       {image ? (
@@ -201,7 +201,7 @@ export default async function HostReservationsPage({
                     </div>
 
                     {/* ASSET / GUEST */}
-                    <div className="min-w-0">
+                    <div className="min-w-0 pr-1">
                       <h2 className="truncate text-[18px] font-semibold leading-tight">
                         {booking.listing.title}
                       </h2>
@@ -224,7 +224,7 @@ export default async function HostReservationsPage({
                     </div>
 
                     {/* DATES */}
-                    <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+                    <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-1">
                       {/* START */}
                       <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px] border border-[#172033]/10 bg-white">
