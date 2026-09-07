@@ -308,11 +308,6 @@ export default async function HostReservationsPage({
     </span>
   )}
 
-{booking.status === "CANCELLED" && (
-  <span className="inline-flex rounded-full bg-red-50 px-4 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-red-600">
-    Cancelled
-  </span>
-)}
 
 {booking.status === "COMPLETED" && (
   <span className="inline-flex rounded-full bg-slate-100 px-4 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-slate-600">
