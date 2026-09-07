@@ -182,7 +182,7 @@ export default async function HostReservationsPage({
                   key={booking.id}
                   className="overflow-hidden rounded-[20px] border border-[#172033]/10 bg-white shadow-[0_1px_4px_rgba(23,32,51,0.04)]"
                 >
-                 <div className="grid grid-cols-1 items-center gap-2.5 p-3 lg:grid-cols-[110px_175px_235px_155px_minmax(150px,1fr)]">
+                 <div className="grid grid-cols-1 items-center gap-3 p-3 lg:grid-cols-[110px_190px_255px_175px_115px]">
                     {/* IMAGE */}
                     <div className="h-[84px] overflow-hidden rounded-[13px] bg-neutral-200">
                       {image ? (
@@ -224,7 +224,7 @@ export default async function HostReservationsPage({
                     </div>
 
                     {/* DATES */}
-                    <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-1">
+                    <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
                       {/* START */}
                       <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px] border border-[#172033]/10 bg-white">
@@ -412,8 +412,8 @@ export default async function HostReservationsPage({
                     </div>
 
                     {/* TOTAL */}
-                    <div className="border-t border-[#172033]/10 pt-3 lg:border-l lg:border-t-0 lg:pl-5 lg:pt-0">
-                      <div className="flex items-center justify-between gap-6">
+                    <div className="border-t border-[#172033]/10 pt-3 lg:border-l lg:border-t-0 lg:pl-4 lg:pt-0">
+                     <div className="flex items-center justify-between gap-2">
                         <div>
                           
                           <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-[#172033]/45">
