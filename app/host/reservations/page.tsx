@@ -391,21 +391,21 @@ export default async function HostReservationsPage({
                       {booking.status ===
                         "CONFIRMED" &&
                         !booking.cancellationRequested && (
-                          <span className="inline-flex rounded-full bg-emerald-50 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-emerald-700">
+                          <span className="ml-10 inline-flex rounded-full bg-emerald-50 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.12em] ...">
                             Confirmed
                           </span>
                         )}
 
                       {booking.status ===
                         "CANCELLED" && (
-                          <span className="inline-flex rounded-full bg-red-50 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-red-600">
+                          <span className="ml-10 inline-flex rounded-full bg-red-50 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.12em] ...">
                             Cancelled
                           </span>
                         )}
 
                       {booking.status ===
                         "COMPLETED" && (
-                          <span className="inline-flex rounded-full bg-slate-100 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-slate-600">
+                         <span className="ml-10 inline-flex rounded-full bg-slate-100 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.12em] ...">
                             Completed
                           </span>
                         )}
