@@ -123,7 +123,13 @@ export default async function HostReservationsPage({
 
   return (
     <HostShell>
-      <div className="min-w-0 pb-12 text-[#172033]">
+      <div
+  className="min-w-0 pb-12 text-[#172033]"
+  style={{
+    fontFamily:
+      'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+  }}
+>
         {/* PAGE HEADER */}
         <div>
           <h1 className="text-[36px] font-black leading-tight tracking-[-0.035em]">
@@ -206,7 +212,7 @@ export default async function HostReservationsPage({
 
                     {/* ASSET + GUEST */}
                     <div className="min-w-0">
-                      <h2 className="truncate text-[17px] font-bold leading-tight tracking-[-0.015em]">
+                      <h2 className="truncate text-[16px] font-semibold leading-tight tracking-[-0.01em]">
                         {booking.listing.title}
                       </h2>
 
@@ -228,32 +234,57 @@ export default async function HostReservationsPage({
                     </div>
 
                     {/* DATES */}
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="rounded-[13px] border border-[#172033]/10 bg-[#faf8f4] px-3 py-2.5">
-                        <p className="text-[9px] font-bold uppercase tracking-[0.08em] text-[#172033]/35">
-                          Start
-                        </p>
+<div className="grid grid-cols-2 gap-2">
+  <div className="flex items-center gap-3 rounded-[13px] border border-[#172033]/10 bg-white px-3 py-2.5">
+    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border border-[#172033]/10">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        className="h-4 w-4 text-[#172033]/70"
+      >
+        <rect x="3" y="5" width="18" height="16" rx="2" />
+        <path d="M16 3v4M8 3v4M3 10h18" />
+      </svg>
+    </div>
 
-                        <p className="mt-1 whitespace-nowrap text-[12px] font-bold">
-                          {formatDate(
-                            booking.startAt
-                          )}
-                        </p>
-                      </div>
+    <div>
+      <p className="whitespace-nowrap text-[12px] font-bold">
+        {formatDate(booking.startAt)}
+      </p>
 
-                      <div className="rounded-[13px] border border-[#172033]/10 bg-[#faf8f4] px-3 py-2.5">
-                        <p className="text-[9px] font-bold uppercase tracking-[0.08em] text-[#172033]/35">
-                          End
-                        </p>
+      <p className="mt-0.5 text-[10px] font-medium text-[#172033]/45">
+        Start
+      </p>
+    </div>
+  </div>
 
-                        <p className="mt-1 whitespace-nowrap text-[12px] font-bold">
-                          {formatDate(
-                            booking.endAt
-                          )}
-                        </p>
-                      </div>
-                    </div>
+  <div className="flex items-center gap-3 rounded-[13px] border border-[#172033]/10 bg-white px-3 py-2.5">
+    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border border-[#172033]/10">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        className="h-4 w-4 text-[#172033]/70"
+      >
+        <rect x="3" y="5" width="18" height="16" rx="2" />
+        <path d="M16 3v4M8 3v4M3 10h18" />
+      </svg>
+    </div>
 
+    <div>
+      <p className="whitespace-nowrap text-[12px] font-bold">
+        {formatDate(booking.endAt)}
+      </p>
+
+      <p className="mt-0.5 text-[10px] font-medium text-[#172033]/45">
+        End
+      </p>
+    </div>
+  </div>
+</div>
                     {/* STATUS / ACTIONS */}
                     <div className="min-w-0">
                       {booking.status ===
@@ -369,25 +400,27 @@ export default async function HostReservationsPage({
                     </div>
 
                     {/* TOTAL */}
-                    <div className="border-t border-[#172033]/10 pt-3 lg:border-l lg:border-t-0 lg:pl-4 lg:pt-0 lg:text-right">
-                      <p className="text-[9px] font-bold uppercase tracking-[0.08em] text-[#172033]/35">
-                        Total
-                      </p>
+<div className="border-t border-[#172033]/10 pt-3 lg:border-l lg:border-t-0 lg:pl-4 lg:pt-0">
+  <div className="flex items-center justify-between gap-3">
+    <div className="text-left">
+      <p className="text-[9px] font-bold uppercase tracking-[0.08em] text-[#172033]/40">
+        Total
+      </p>
 
-                      <p className="mt-1 whitespace-nowrap text-[18px] font-black tracking-[-0.02em]">
-                        {formatCurrency(
-                          booking.total
-                        )}
-                      </p>
+      <p className="mt-1 whitespace-nowrap text-[18px] font-black tracking-[-0.02em]">
+        {formatCurrency(booking.total)}
+      </p>
+    </div>
 
-                      <a
-                        href={`/listing/${booking.listing.slug}`}
-                        className="mt-1.5 inline-block whitespace-nowrap text-[11px] font-bold text-[#9a7a45]"
-                      >
-                        View listing →
-                      </a>
-                    </div>
-                  </div>
+    <a
+      href={`/listing/${booking.listing.slug}`}
+      aria-label={`View ${booking.listing.title}`}
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xl font-medium text-[#172033]/65 transition hover:bg-[#f4ead8] hover:text-[#172033]"
+    >
+      →
+    </a>
+  </div>
+</div>
                 </div>
               );
             })}
