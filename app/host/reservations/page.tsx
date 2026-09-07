@@ -420,7 +420,7 @@ export default async function HostReservationsPage({
                             Total
                           </p>
 
-                          <p className="mt-1 whitespace-nowrap text-[19px] font-bold tracking-[-0.02em]">
+                          <p className="mt-1 whitespace-nowrap text-[16px] font-semibold tracking-[-0.01em]">
                             {formatCurrency(
                               booking.total
                             )}
@@ -430,7 +430,7 @@ export default async function HostReservationsPage({
                        <a
   href={`/listing/${booking.listing.slug}`}
   aria-label={`View ${booking.listing.title}`}
-  className="ml-auto mr-4 flex h-10 w-8 shrink-0 items-center justify-center text-[#172033]/65 transition hover:text-[#172033]"
+  className="ml-auto mr-4 mt-4 flex h-8 w-8 shrink-0 items-center justify-center text-[#172033]/65 transition hover:text-[#172033]"
 >
   <svg
     width="9"
