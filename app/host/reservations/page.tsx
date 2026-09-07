@@ -341,8 +341,8 @@ export default async function HostReservationsPage({
                       {booking.status ===
                         "CONFIRMED" &&
                         booking.cancellationRequested && (
-                         <div className="ml-10 min-w-[170px] rounded-[14px] border border-[#c9a96e]/35 bg-[#f4ead8] px-3 py-2.5">
-                            <p className="whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.11em] ...">
+                         <div className="ml-10 w-[278px] rounded-[14px] border border-[#c9a96e]/35 bg-[#f4ead8] px-4 py-3">
+                            <p className="whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.11em] text-[#9a7a45]">
                               Cancellation requested
                             </p>
 
@@ -356,7 +356,7 @@ export default async function HostReservationsPage({
                               </span>
                             </p>
 
-                            <div className="mt-3 flex gap-2">
+                            <div className="mt-3 flex gap-3">
                               <form
                                 action={approveCancellationRequest.bind(
                                   null,
@@ -365,7 +365,7 @@ export default async function HostReservationsPage({
                               >
                                 <button
                                   type="submit"
-                                  className="rounded-full bg-[#172033] px-4 py-2 text-[11px] font-semibold text-white"
+                                  className="flex-1 rounded-full bg-[#172033] px-5 py-2 text-[12px] font-semibold text-white"
                                 >
                                   Approve
                                 </button>
@@ -379,7 +379,7 @@ export default async function HostReservationsPage({
                               >
                                 <button
                                   type="submit"
-                                  className="rounded-full border border-red-200 bg-white px-4 py-2 text-[11px] font-semibold text-red-600"
+                                  className="flex-1 rounded-full border border-red-300 bg-white px-5 py-2 text-[12px] font-semibold text-red-600"
                                 >
                                   Decline
                                 </button>
