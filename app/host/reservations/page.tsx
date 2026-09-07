@@ -427,10 +427,12 @@ export default async function HostReservationsPage({
                           </p>
                         </div>
 
-                       className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center text-[22px] font-medium text-[#172033]/65 transition hover:text-[#172033]"
-                        >
-                          &gt;
-                        </a>
+                       <a
+  href={`/listing/${booking.listing.slug}`}
+  className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center text-[22px] font-medium text-[#172033]/65 transition hover:text-[#172033]"
+>
+  &gt;
+</a>
                       </div>
                     </div>
                   </div>
