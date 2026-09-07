@@ -182,7 +182,7 @@ export default async function HostReservationsPage({
                   key={booking.id}
                   className="overflow-hidden rounded-[20px] border border-[#172033]/10 bg-white shadow-[0_1px_4px_rgba(23,32,51,0.04)]"
                 >
-                  <div className="grid grid-cols-1 items-center gap-2.5 p-3 lg:grid-cols-[110px_175px_235px_185px_130px]">
+                 <div className="grid grid-cols-1 items-center gap-2.5 p-3 lg:grid-cols-[110px_175px_235px_155px_minmax(150px,1fr)]">
                     {/* IMAGE */}
                     <div className="h-[84px] overflow-hidden rounded-[13px] bg-neutral-200">
                       {image ? (
@@ -413,8 +413,9 @@ export default async function HostReservationsPage({
 
                     {/* TOTAL */}
                     <div className="border-t border-[#172033]/10 pt-3 lg:border-l lg:border-t-0 lg:pl-5 lg:pt-0">
-                      <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center justify-between gap-6">
                         <div>
+                          
                           <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-[#172033]/45">
                             Total
                           </p>
@@ -426,12 +427,9 @@ export default async function HostReservationsPage({
                           </p>
                         </div>
 
-                        <a
-                          href={`/listing/${booking.listing.slug}`}
-                          aria-label={`View ${booking.listing.title}`}
-                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[24px] font-light text-[#172033]/60 transition hover:bg-[#f4ead8] hover:text-[#172033]"
+                       className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center text-[22px] font-medium text-[#172033]/65 transition hover:text-[#172033]"
                         >
-                          →
+                          &gt;
                         </a>
                       </div>
                     </div>
