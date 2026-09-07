@@ -75,7 +75,7 @@ export default async function HostReservationsPage({
 
   return (
     <HostShell>
-      <div className="pb-10">
+      <div className="min-w-0 pb-10">
         {/* HEADER */}
         <div>
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#9a7a45]">
@@ -86,13 +86,13 @@ export default async function HostReservationsPage({
             Reservations
           </h1>
 
-          <p className="mt-2 text-[#172033]/60">
+          <p className="mt-2 text-sm text-[#172033]/60">
             Manage your bookings, approvals, and guest requests.
           </p>
         </div>
 
-        {/* FILTER TABS */}
-        <div className="mt-7 flex flex-wrap gap-2 border-b border-[#172033]/10 pb-4">
+        {/* TABS */}
+        <div className="mt-6 flex flex-wrap gap-2 border-b border-[#172033]/10 pb-4">
           {tabs.map((tab) => {
             const active = selectedStatus === tab.value;
 
@@ -106,8 +106,8 @@ export default async function HostReservationsPage({
                 }
                 className={
                   active
-                    ? "rounded-xl bg-[#f4ead8] px-5 py-2.5 text-sm font-black text-[#172033]"
-                    : "rounded-xl px-5 py-2.5 text-sm font-semibold text-[#172033]/60 transition hover:bg-white hover:text-[#172033]"
+                    ? "rounded-xl bg-[#f4ead8] px-4 py-2 text-sm font-black text-[#172033]"
+                    : "rounded-xl px-4 py-2 text-sm font-semibold text-[#172033]/60 transition hover:bg-white"
                 }
               >
                 {tab.label}
@@ -116,7 +116,6 @@ export default async function HostReservationsPage({
           })}
         </div>
 
-        {/* EMPTY STATE */}
         {filteredBookings.length === 0 ? (
           <div className="mt-6 rounded-[1.5rem] border border-[#172033]/10 bg-white p-8">
             <h2 className="text-lg font-black text-[#172033]">
@@ -135,12 +134,11 @@ export default async function HostReservationsPage({
               return (
                 <div
                   key={booking.id}
-                  className="overflow-hidden rounded-[1.4rem] border border-[#172033]/10 bg-white shadow-sm"
+                  className="overflow-hidden rounded-[1.35rem] border border-[#172033]/10 bg-white shadow-sm"
                 >
-                 <div className="flex flex-col gap-3 lg:grid lg:grid-cols-[120px_minmax(160px,1fr)_210px_190px_110px] lg:items-center">
+                  <div className="grid min-h-[108px] grid-cols-1 items-center gap-3 p-3 lg:grid-cols-[110px_minmax(150px,1fr)_190px_minmax(160px,190px)_110px]">
                     {/* PHOTO */}
-                   <div className="h-[105px] w-full overflow-hidden bg-neutral-200 lg:h-[105px]">
-                     <div className="h-[125px] w-full bg-neutral-200 xl:h-[128px]">
+                    <div className="h-[95px] overflow-hidden rounded-[1rem] bg-neutral-200">
                       {image ? (
                         <img
                           src={`/api/image?pathname=${encodeURIComponent(image)}`}
@@ -148,69 +146,85 @@ export default async function HostReservationsPage({
                           className="h-full w-full object-cover"
                         />
                       ) : (
-                        <div className="flex h-full items-center justify-center text-sm text-[#172033]/35">
+                        <div className="flex h-full items-center justify-center text-xs text-[#172033]/35">
                           No photo
                         </div>
                       )}
                     </div>
 
                     {/* LISTING / GUEST */}
-                    <div className="min-w-0 px-5 py-4">
+                    <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
                         <h2 className="truncate text-lg font-black text-[#172033]">
                           {booking.listing.title}
                         </h2>
 
                         {booking.status === "PENDING" && (
-                          <span className="rounded-full bg-[#f4ead8] px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-[#9a7a45]">
+                          <span className="rounded-full bg-[#f4ead8] px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-[#9a7a45]">
                             Pending
                           </span>
                         )}
 
-                        
+                        {booking.status === "CONFIRMED" && (
+                          <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-emerald-700">
+                            Confirmed
+                          </span>
+                        )}
+
+                        {booking.status === "CANCELLED" && (
+                          <span className="rounded-full bg-red-50 px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-red-600">
+                            Cancelled
+                          </span>
+                        )}
+
+                        {booking.status === "COMPLETED" && (
+                          <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-slate-600">
+                            Completed
+                          </span>
+                        )}
                       </div>
 
-                      <p className="mt-2 truncate text-sm text-[#172033]/60">
+                      <p className="mt-1.5 truncate text-xs text-[#172033]/60">
                         Guest: {booking.guest.name}
                       </p>
 
-                      <p className="mt-1 truncate text-sm text-[#172033]/45">
+                      <p className="mt-1 truncate text-xs text-[#172033]/45">
                         {booking.guest.email}
                       </p>
 
-                      <p className="mt-2 text-xs text-[#172033]/40">
+                      <p className="mt-1.5 text-[10px] text-[#172033]/40">
                         Booking #{booking.id.slice(-8).toUpperCase()}
                       </p>
                     </div>
 
                     {/* DATES */}
-                    <div className="grid grid-cols-2 gap-2 px-5 py-4 xl:px-2">
-                      <div className="rounded-[1rem] border border-[#172033]/10 bg-[#faf8f4] px-3 py-3">
-                        <p className="text-[9px] font-black uppercase tracking-wider text-[#172033]/35">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="rounded-[0.9rem] border border-[#172033]/10 bg-[#faf8f4] px-3 py-2.5">
+                        <p className="text-[8px] font-black uppercase tracking-wider text-[#172033]/35">
                           Start
                         </p>
 
-                        <p className="mt-1 text-xs font-black text-[#172033]">
+                        <p className="mt-1 text-[11px] font-black text-[#172033]">
                           {formatDate(booking.startAt)}
                         </p>
                       </div>
 
-                      <div className="rounded-[1rem] border border-[#172033]/10 bg-[#faf8f4] px-3 py-3">
-                        <p className="text-[9px] font-black uppercase tracking-wider text-[#172033]/35">
+                      <div className="rounded-[0.9rem] border border-[#172033]/10 bg-[#faf8f4] px-3 py-2.5">
+                        <p className="text-[8px] font-black uppercase tracking-wider text-[#172033]/35">
                           End
                         </p>
 
-                        <p className="mt-1 text-xs font-black text-[#172033]">
+                        <p className="mt-1 text-[11px] font-black text-[#172033]">
                           {formatDate(booking.endAt)}
                         </p>
                       </div>
                     </div>
 
-                    {/* STATUS / ACTIONS */}
-                    <div className="px-5 py-4">
+                    {/* ACTIONS */}
+                    <div className="min-w-0">
                       {booking.status === "PENDING" && (
                         <div>
-                          <p className="mb-2 text-[9px] font-black uppercase tracking-[0.14em] text-[#9a7a45]">
+                          <p className="mb-2 text-[9px] font-black uppercase tracking-wider text-[#9a7a45]">
                             Booking request
                           </p>
 
@@ -223,7 +237,7 @@ export default async function HostReservationsPage({
                             >
                               <button
                                 type="submit"
-                                className="rounded-full bg-[#172033] px-4 py-2 text-xs font-black text-white transition hover:bg-[#24304a]"
+                                className="rounded-full bg-[#172033] px-3.5 py-2 text-[11px] font-black text-white"
                               >
                                 Approve
                               </button>
@@ -237,7 +251,7 @@ export default async function HostReservationsPage({
                             >
                               <button
                                 type="submit"
-                                className="rounded-full border border-red-200 bg-white px-4 py-2 text-xs font-black text-red-600 transition hover:bg-red-50"
+                                className="rounded-full border border-red-200 bg-white px-3.5 py-2 text-[11px] font-black text-red-600"
                               >
                                 Decline
                               </button>
@@ -248,19 +262,19 @@ export default async function HostReservationsPage({
 
                       {booking.status === "CONFIRMED" &&
                         booking.cancellationRequested && (
-                          <div className="rounded-[1rem] border border-[#c9a96e]/40 bg-[#f4ead8] p-3">
-                            <p className="text-[9px] font-black uppercase tracking-[0.13em] text-[#9a7a45]">
+                          <div className="rounded-[0.9rem] border border-[#c9a96e]/40 bg-[#f4ead8] p-3">
+                            <p className="text-[8px] font-black uppercase tracking-wider text-[#9a7a45]">
                               Cancellation requested
                             </p>
 
-                            <p className="mt-1.5 text-xs text-[#172033]/70">
-                              Guest refund:{" "}
+                            <p className="mt-1 text-[11px] text-[#172033]/70">
+                              Refund:{" "}
                               <span className="font-black text-[#172033]">
                                 {booking.cancellationRefundPct}%
                               </span>
                             </p>
 
-                            <div className="mt-3 flex gap-2">
+                            <div className="mt-2 flex flex-wrap gap-1.5">
                               <form
                                 action={approveCancellationRequest.bind(
                                   null,
@@ -269,7 +283,7 @@ export default async function HostReservationsPage({
                               >
                                 <button
                                   type="submit"
-                                  className="rounded-full bg-[#172033] px-3.5 py-2 text-[11px] font-black text-white"
+                                  className="rounded-full bg-[#172033] px-3 py-1.5 text-[10px] font-black text-white"
                                 >
                                   Approve
                                 </button>
@@ -283,7 +297,7 @@ export default async function HostReservationsPage({
                               >
                                 <button
                                   type="submit"
-                                  className="rounded-full border border-red-200 bg-white px-3.5 py-2 text-[11px] font-black text-red-600"
+                                  className="rounded-full border border-red-200 bg-white px-3 py-1.5 text-[10px] font-black text-red-600"
                                 >
                                   Decline
                                 </button>
@@ -292,41 +306,32 @@ export default async function HostReservationsPage({
                           </div>
                         )}
 
-                      {booking.status === "CONFIRMED" &&
-                        !booking.cancellationRequested && (
-                          <span className="inline-flex rounded-full bg-emerald-50 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.12em] text-emerald-700">
-                            Confirmed
-                          </span>
+                      {booking.status !== "PENDING" &&
+                        !(
+                          booking.status === "CONFIRMED" &&
+                          booking.cancellationRequested
+                        ) && (
+                          <p className="text-[11px] text-[#172033]/35">
+                            No action required
+                          </p>
                         )}
-
-                      {booking.status === "CANCELLED" && (
-                        <span className="inline-flex rounded-full bg-red-50 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.12em] text-red-600">
-                          Cancelled
-                        </span>
-                      )}
-
-                      {booking.status === "COMPLETED" && (
-                        <span className="inline-flex rounded-full bg-slate-100 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.12em] text-slate-600">
-                          Completed
-                        </span>
-                      )}
                     </div>
 
                     {/* TOTAL */}
-                    <div className="border-t border-[#172033]/8 px-5 py-4 xl:border-l xl:border-t-0 xl:text-right">
-                      <p className="text-[9px] font-black uppercase tracking-wider text-[#172033]/35">
+                    <div className="min-w-[110px] border-t border-[#172033]/10 pt-3 lg:border-l lg:border-t-0 lg:pl-4 lg:pt-0 lg:text-right">
+                      <p className="text-[8px] font-black uppercase tracking-wider text-[#172033]/35">
                         Total
                       </p>
 
-                      <p className="mt-1 text-lg font-black text-[#172033]">
+                      <p className="mt-1 whitespace-nowrap text-lg font-black text-[#172033]">
                         ${booking.total.toFixed(2)}
                       </p>
 
                       <a
                         href={`/listing/${booking.listing.slug}`}
-                        className="mt-2 inline-block text-xs font-black text-[#9a7a45]"
+                        className="mt-1.5 inline-block whitespace-nowrap text-[10px] font-black text-[#9a7a45]"
                       >
-                        View →
+                        View listing →
                       </a>
                     </div>
                   </div>
