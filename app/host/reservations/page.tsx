@@ -412,9 +412,9 @@ export default async function HostReservationsPage({
                     </div>
 
                     {/* TOTAL */}
-                    <div className="border-t border-[#172033]/10 pt-3 lg:border-l lg:border-t-0 lg:pl-4 lg:pt-0">
-                     <div className="flex items-center justify-between gap-2">
-                        <div>
+<div className="ml-auto w-[145px] border-t border-[#172033]/10 pt-3 lg:border-l lg:border-t-0 lg:pl-4 lg:pt-0">
+<div className="flex w-full items-center justify-between">
+  <div>
                           
                           <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-[#172033]/45">
                             Total
