@@ -182,7 +182,7 @@ export default async function HostReservationsPage({
                   key={booking.id}
                   className="overflow-hidden rounded-[20px] border border-[#172033]/10 bg-white shadow-[0_1px_4px_rgba(23,32,51,0.04)]"
                 >
-                  <div className="grid grid-cols-1 items-center gap-3 p-3 lg:grid-cols-[120px_minmax(150px,1fr)_230px_175px_125px]">
+                  <div className="grid grid-cols-1 items-center gap-3 p-3 lg:grid-cols-[115px_minmax(180px,1fr)_260px_190px_135px]">
                     {/* IMAGE */}
                     <div className="h-[84px] overflow-hidden rounded-[13px] bg-neutral-200">
                       {image ? (
@@ -247,7 +247,7 @@ export default async function HostReservationsPage({
                         </div>
 
                         <div>
-                          <p className="whitespace-nowrap text-[13px] font-medium">
+                          <<p className="whitespace-nowrap text-[12px] font-medium">
                             {formatDate(
                               booking.startAt
                             )}
@@ -285,7 +285,7 @@ export default async function HostReservationsPage({
                         </div>
 
                         <div>
-                          <p className="whitespace-nowrap text-[13px] font-medium">
+                          <p className="whitespace-nowrap text-[12px] font-medium">
                             {formatDate(
                               booking.endAt
                             )}
@@ -341,7 +341,7 @@ export default async function HostReservationsPage({
                       {booking.status ===
                         "CONFIRMED" &&
                         booking.cancellationRequested && (
-                          <div className="rounded-[14px] border border-[#c9a96e]/35 bg-[#f4ead8] px-4 py-3">
+                         <div className="min-w-[170px] rounded-[14px] border border-[#c9a96e]/35 bg-[#f4ead8] px-3 py-2.5">
                             <p className="text-[10px] font-bold uppercase tracking-[0.11em] text-[#9a7a45]">
                               Cancellation requested
                             </p>
