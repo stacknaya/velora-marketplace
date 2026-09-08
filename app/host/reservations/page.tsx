@@ -428,7 +428,7 @@ export default async function HostReservationsPage({
                         </div>
 
                        <a
-  href={`/listing/${booking.listing.slug}`}
+  href={`/host/reservations/${booking.id}`}
   aria-label={`View ${booking.listing.title}`}
   className="ml-auto mr-4 mt-4 flex h-8 w-8 shrink-0 items-center justify-center text-[#172033]/65 transition hover:text-[#172033]"
 >
