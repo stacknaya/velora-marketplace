@@ -5,22 +5,78 @@ import { db } from "@/lib/db";
 export default async function ExplorePage({
   searchParams
 }: {
-  searchParams: Promise<{ category?: string; location?: string }>
+  searchParams: Promise<{
+  category?: string;
+  location?: string;
+  start?: string;
+  end?: string;
+}>
 }) {
   const params = await searchParams;
+  const startDate = params.start ? new Date(params.start) : null;
+const endDate = params.end ? new Date(params.end) : null;
+
+const hasValidDateRange =
+  startDate &&
+  endDate &&
+  !Number.isNaN(startDate.getTime()) &&
+  !Number.isNaN(endDate.getTime()) &&
+  startDate < endDate;
 
   const listings = await db.listing.findMany({
     where: {
-      ...(params.category ? { category: params.category as any } : {}),
-      ...(params.location
-        ? {
-            OR: [
-              { city: { contains: params.location } },
-              { state: { contains: params.location } }
-            ]
+  ...(params.category
+    ? { category: params.category as any }
+    : {}),
+
+  ...(params.location
+    ? {
+        OR: [
+          {
+            city: {
+              contains: params.location,
+              mode: "insensitive"
+            }
+          },
+          {
+            state: {
+              contains: params.location,
+              mode: "insensitive"
+            }
           }
-        : {})
-    },
+        ]
+      }
+    : {}),
+
+  ...(hasValidDateRange
+    ? {
+        blockedDates: {
+          none: {
+            startAt: {
+              lt: endDate!
+            },
+            endAt: {
+              gt: startDate!
+            }
+          }
+        },
+
+        bookings: {
+          none: {
+            status: {
+              in: ["PENDING", "CONFIRMED"]
+            },
+            startAt: {
+              lt: endDate!
+            },
+            endAt: {
+              gt: startDate!
+            }
+          }
+        }
+      }
+    : {})
+},
     include: { photos: { orderBy: { position: "asc" } } },
     orderBy: { createdAt: "desc" }
   });
