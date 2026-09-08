@@ -370,3 +370,72 @@ export async function declineCancellationRequest(bookingId: string) {
 
   redirect("/host/reservations");
 }
+
+export async function archiveReservation(bookingId: string) {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
+  const booking = await db.booking.findUnique({
+    where: { id: bookingId },
+    include: {
+      listing: true,
+    },
+  });
+
+  if (!booking || booking.listing.hostId !== user.id) {
+    redirect("/host/reservations");
+  }
+
+  if (
+    booking.status !== "CANCELLED" &&
+    booking.status !== "COMPLETED"
+  ) {
+    redirect(`/host/reservations/${bookingId}`);
+  }
+
+  await db.booking.update({
+    where: { id: bookingId },
+    data: {
+      archivedByHost: true,
+    },
+  });
+
+  revalidatePath("/host/reservations");
+  revalidatePath(`/host/reservations/${bookingId}`);
+
+  redirect("/host/reservations");
+}
+
+export async function restoreReservation(bookingId: string) {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
+  const booking = await db.booking.findUnique({
+    where: { id: bookingId },
+    include: {
+      listing: true,
+    },
+  });
+
+  if (!booking || booking.listing.hostId !== user.id) {
+    redirect("/host/reservations");
+  }
+
+  await db.booking.update({
+    where: { id: bookingId },
+    data: {
+      archivedByHost: false,
+    },
+  });
+
+  revalidatePath("/host/reservations");
+  revalidatePath(`/host/reservations/${bookingId}`);
+
+  redirect("/host/reservations");
+}
