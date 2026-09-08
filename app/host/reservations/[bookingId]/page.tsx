@@ -2,7 +2,10 @@ import HostShell from "@/components/HostShell";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { notFound, redirect } from "next/navigation";
-import { archiveReservation } from "@/app/actions/bookings";
+import {
+  archiveReservation,
+  restoreReservation,
+} from "@/app/actions/bookings";
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat("en-US", {
@@ -229,6 +232,30 @@ export default async function ReservationDetailsPage({
         {(booking.status === "CANCELLED" ||
   booking.status === "COMPLETED") &&
   !booking.archivedByHost && (
+    {booking.archivedByHost && (
+  <div className="mt-5 rounded-[22px] border border-[#172033]/10 bg-white p-6">
+    <div className="flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <h2 className="text-[16px] font-semibold text-[#172033]">
+          Archived reservation
+        </h2>
+
+        <p className="mt-1 text-[13px] text-[#172033]/55">
+          Restore this reservation to return it to your normal reservation history.
+        </p>
+      </div>
+
+      <form action={restoreReservation.bind(null, booking.id)}>
+        <button
+          type="submit"
+          className="rounded-full bg-[#172033] px-5 py-2.5 text-[12px] font-semibold text-white hover:opacity-90"
+        >
+          Restore reservation
+        </button>
+      </form>
+    </div>
+  </div>
+)}
     <div className="mt-5 rounded-[22px] border border-[#172033]/10 bg-white p-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
