@@ -341,7 +341,7 @@ export default async function HostReservationsPage({
                       {booking.status ===
                         "CONFIRMED" &&
                         booking.cancellationRequested && (
-                         <div className="ml-10 w-[278px] rounded-[14px] border border-[#c9a96e]/35 bg-[#f4ead8] px-4 py-3">
+                         <div className="ml-14 w-[278px] rounded-[14px] border border-[#c9a96e]/35 bg-[#f4ead8] px-4 py-3">
                             <p className="whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.11em] text-[#9a7a45]">
                               Cancellation requested
                             </p>
