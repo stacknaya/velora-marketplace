@@ -41,7 +41,7 @@ export default async function HostReservationsPage({
   listing: {
     hostId: user.id,
   },
-  archivedByHost: false,
+  archivedByHost: selectedStatus === "ARCHIVED",
 },
     include: {
       guest: {
@@ -66,12 +66,11 @@ export default async function HostReservationsPage({
   });
 
   const filteredBookings =
-    selectedStatus === "ALL"
-      ? bookings
-      : bookings.filter(
-          (booking) => booking.status === selectedStatus
-        );
-
+  selectedStatus === "ALL" || selectedStatus === "ARCHIVED"
+    ? bookings
+    : bookings.filter(
+        (booking) => booking.status === selectedStatus
+      );
   const totalPages = Math.max(
     1,
     Math.ceil(
@@ -94,7 +93,8 @@ export default async function HostReservationsPage({
     { label: "Pending", value: "PENDING" },
     { label: "Confirmed", value: "CONFIRMED" },
     { label: "Cancelled", value: "CANCELLED" },
-    { label: "Completed", value: "COMPLETED" }
+    { label: "Completed", value: "COMPLETED" },
+{ label: "Archived", value: "ARCHIVED" }
   ];
 
   const formatDate = (date: Date) =>
