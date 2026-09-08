@@ -2,6 +2,7 @@ import HostShell from "@/components/HostShell";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { notFound, redirect } from "next/navigation";
+import { archiveReservation } from "@/app/actions/bookings";
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat("en-US", {
@@ -224,6 +225,33 @@ export default async function ReservationDetailsPage({
             </div>
           </div>
         </div>
+
+        {(booking.status === "CANCELLED" ||
+  booking.status === "COMPLETED") &&
+  !booking.archivedByHost && (
+    <div className="mt-5 rounded-[22px] border border-[#172033]/10 bg-white p-6">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 className="text-[16px] font-semibold text-[#172033]">
+            Reservation management
+          </h2>
+
+          <p className="mt-1 text-[13px] text-[#172033]/55">
+            Archive this reservation to remove it from your active reservation list.
+          </p>
+        </div>
+
+        <form action={archiveReservation.bind(null, booking.id)}>
+          <button
+            type="submit"
+            className="rounded-full border border-[#172033]/15 bg-white px-5 py-2.5 text-[12px] font-semibold text-[#172033] hover:bg-[#f7f3ec]"
+          >
+            Archive reservation
+          </button>
+        </form>
+      </div>
+    </div>
+  )}
 
         {/* CANCELLATION */}
         {booking.cancellationRequested && (
