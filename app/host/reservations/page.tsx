@@ -37,11 +37,12 @@ export default async function HostReservationsPage({
       : 1;
 
   const bookings = await db.booking.findMany({
-    where: {
-      listing: {
-        hostId: user.id
-      }
-    },
+   where: {
+  listing: {
+    hostId: user.id,
+  },
+  archivedByHost: false,
+},
     include: {
       guest: {
         select: {
