@@ -226,7 +226,7 @@ export default async function HostReservationsPage({
                     {/* DATES */}
                     <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
                       {/* START */}
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px] border border-[#172033]/10 bg-white">
                           <svg
                             viewBox="0 0 24 24"
@@ -264,7 +264,7 @@ export default async function HostReservationsPage({
                       </span>
 
                       {/* END */}
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px] border border-[#172033]/10 bg-white">
                           <svg
                             viewBox="0 0 24 24"
