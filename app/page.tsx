@@ -24,11 +24,11 @@ export default async function Home() {
 
       <main className="min-h-screen bg-[#f7f3ec] text-[#172033]">
         {/* SEARCH */}
-        <section className="border-b border-[#172033]/10 bg-white px-4 py-6 md:px-6">
+        <section className="border-b border-[#172033]/10 bg-[#f7f3ec] px-4 py-8 md:px-6 md:py-10">
           <div className="mx-auto max-w-6xl">
             <form
               action="/explore"
-              className="grid overflow-hidden rounded-[24px] border border-[#172033]/10 bg-white shadow-[0_8px_30px_rgba(23,32,51,0.08)] md:grid-cols-[1.35fr_1.4fr_1fr_auto]"
+              className="grid overflow-hidden rounded-[28px] border border-[#172033]/10 bg-white shadow-[0_8px_30px_rgba(23,32,51,0.08)] md:grid-cols-[1.35fr_1.4fr_1fr_auto]"
             >
               {/* WHERE */}
               <label className="group border-b border-[#172033]/10 px-6 py-4 transition hover:bg-[#f7f3ec] md:border-b-0 md:border-r">
