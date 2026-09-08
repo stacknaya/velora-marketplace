@@ -5,119 +5,158 @@ import { db } from "@/lib/db";
 
 export default async function Home() {
   const listings = await db.listing.findMany({
-    include: { photos: { orderBy: { position: "asc" } } },
-    orderBy: { createdAt: "desc" },
-    take: 6
+    include: {
+      photos: {
+        orderBy: {
+          position: "asc",
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 6,
   });
 
   return (
     <>
       <Header />
 
-      <main className="bg-[#f7f3ec] text-[#172033]">
-        <section className="px-6 pt-6">
-          <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-[#172033] text-white">
-            <div className="px-6 py-16 md:px-12 md:py-24 lg:px-16">
-              <div className="max-w-4xl">
-                <div className="mb-5 inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-[#e4c994]">
-                  Premium rentals, reimagined
-                </div>
+      <main className="min-h-screen bg-[#f7f3ec] text-[#172033]">
+        {/* SEARCH */}
+        <section className="border-b border-[#172033]/10 bg-white px-4 py-6 md:px-6">
+          <div className="mx-auto max-w-6xl">
+            <form
+              action="/explore"
+              className="grid overflow-hidden rounded-[24px] border border-[#172033]/10 bg-white shadow-[0_8px_30px_rgba(23,32,51,0.08)] md:grid-cols-[1.35fr_1.4fr_1fr_auto]"
+            >
+              {/* WHERE */}
+              <label className="group border-b border-[#172033]/10 px-6 py-4 transition hover:bg-[#f7f3ec] md:border-b-0 md:border-r">
+                <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-[#172033]/50">
+                  Where
+                </span>
 
-                <h1 className="text-5xl font-black leading-[0.96] tracking-tight md:text-7xl">
-                  Your next extraordinary
-                  <span className="block text-[#e4c994]">experience starts here.</span>
-                </h1>
+                <input
+                  type="text"
+                  name="location"
+                  placeholder="Search destinations"
+                  className="mt-1.5 w-full bg-transparent text-[14px] font-semibold text-[#172033] outline-none placeholder:font-medium placeholder:text-[#172033]/35"
+                />
+              </label>
 
-                <p className="mt-7 max-w-2xl text-lg leading-8 text-white/70">
-                  Discover exotic cars, yachts, boats, aircraft, RVs and party rides
-                  from owners and operators across the marketplace.
-                </p>
+              {/* DATES */}
+              <div className="grid grid-cols-2 border-b border-[#172033]/10 md:border-b-0 md:border-r">
+                <label className="border-r border-[#172033]/10 px-5 py-4 transition hover:bg-[#f7f3ec]">
+                  <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-[#172033]/50">
+                    Start
+                  </span>
+
+                  <input
+                    type="date"
+                    name="start"
+                    className="mt-1.5 w-full bg-transparent text-[13px] font-semibold text-[#172033] outline-none"
+                  />
+                </label>
+
+                <label className="px-5 py-4 transition hover:bg-[#f7f3ec]">
+                  <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-[#172033]/50">
+                    End
+                  </span>
+
+                  <input
+                    type="date"
+                    name="end"
+                    className="mt-1.5 w-full bg-transparent text-[13px] font-semibold text-[#172033] outline-none"
+                  />
+                </label>
               </div>
 
-              <form
-                action="/explore"
-                className="mt-12 grid gap-2 rounded-[2rem] bg-white p-3 text-[#172033] shadow-2xl lg:grid-cols-[1.5fr_1fr_1fr_auto]"
-              >
-                <label className="rounded-2xl px-5 py-3 transition hover:bg-[#f7f3ec]">
-                  <span className="block text-[11px] font-black uppercase tracking-[0.18em] text-black/40">
-                    Where
-                  </span>
-                  <input
-                    name="location"
-                    placeholder="City or destination"
-                    className="mt-1 w-full bg-transparent text-sm font-semibold outline-none placeholder:text-black/35"
-                  />
-                </label>
+              {/* EXPERIENCE */}
+              <label className="border-b border-[#172033]/10 px-6 py-4 transition hover:bg-[#f7f3ec] md:border-b-0 md:border-r">
+                <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-[#172033]/50">
+                  Experience
+                </span>
 
-                <label className="rounded-2xl px-5 py-3 transition hover:bg-[#f7f3ec]">
-                  <span className="block text-[11px] font-black uppercase tracking-[0.18em] text-black/40">
-                    Date
-                  </span>
-                  <input
-                    name="start"
-                    type="date"
-                    className="mt-1 w-full bg-transparent text-sm font-semibold outline-none"
-                  />
-                </label>
+                <select
+                  name="category"
+                  defaultValue=""
+                  className="mt-1.5 w-full cursor-pointer bg-transparent text-[14px] font-semibold text-[#172033] outline-none"
+                >
+                  <option value="">All experiences</option>
+                  <option value="CAR">Exotic cars</option>
+                  <option value="BOAT">Boats</option>
+                  <option value="YACHT">Yachts</option>
+                  <option value="RV">RVs</option>
+                  <option value="AIRCRAFT">Aircraft</option>
+                  <option value="PARTY_RIDE">Party rides</option>
+                </select>
+              </label>
 
-                <label className="rounded-2xl px-5 py-3 transition hover:bg-[#f7f3ec]">
-                  <span className="block text-[11px] font-black uppercase tracking-[0.18em] text-black/40">
-                    Experience
-                  </span>
-                  <select
-                    name="category"
-                    className="mt-1 w-full bg-transparent text-sm font-semibold outline-none"
+              {/* SEARCH BUTTON */}
+              <div className="flex items-center justify-center p-3">
+                <button
+                  type="submit"
+                  className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#172033] px-7 text-[14px] font-bold text-white transition hover:bg-[#202c44] md:w-auto"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className="h-4 w-4"
                   >
-                    <option value="">All categories</option>
-                    <option value="CAR">Exotic cars</option>
-                    <option value="BOAT">Boats</option>
-                    <option value="YACHT">Yachts</option>
-                    <option value="RV">RVs</option>
-                    <option value="AIRCRAFT">Aircraft</option>
-                    <option value="PARTY_RIDE">Party rides</option>
-                  </select>
-                </label>
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="m20 20-3.5-3.5" />
+                  </svg>
 
-                <button className="rounded-[1.4rem] bg-[#c9a96e] px-8 py-4 font-black text-[#172033] transition hover:brightness-95">
                   Search
                 </button>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </section>
 
-        <section className="mt-6">
+        {/* CATEGORIES */}
+        <section className="border-b border-[#172033]/10 bg-white">
           <CategoryBar />
         </section>
 
-        <section className="mx-auto max-w-7xl px-6 py-16">
-          <div className="mb-9 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        {/* LISTINGS */}
+        <section className="mx-auto max-w-7xl px-6 py-10 md:py-12">
+          <div className="mb-8 flex items-end justify-between gap-5">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-[#9a7a45]">
-                Curated marketplace
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#9a7a45]">
+                Velora experiences
               </p>
-              <h2 className="mt-2 text-3xl font-black tracking-tight md:text-4xl">
-                Discover something exceptional
-              </h2>
-              <p className="mt-2 max-w-xl text-sm leading-6 text-[#172033]/55">
-                Browse newly listed premium assets and experiences from Velora hosts.
+
+              <h1 className="mt-2 text-2xl font-black tracking-tight md:text-3xl">
+                Extraordinary rentals
+              </h1>
+
+              <p className="mt-2 max-w-xl text-[14px] leading-6 text-[#172033]/55">
+                Discover premium cars, yachts, boats, aircraft, RVs and
+                unforgettable experiences.
               </p>
             </div>
 
             <a
               href="/explore"
-              className="inline-flex w-fit items-center rounded-full border border-[#172033]/15 bg-white px-5 py-3 text-sm font-bold transition hover:border-[#172033]/30"
+              className="hidden shrink-0 rounded-full border border-[#172033]/15 bg-white px-5 py-2.5 text-[13px] font-bold transition hover:border-[#172033]/30 sm:inline-flex"
             >
               Explore all
             </a>
           </div>
 
           {listings.length === 0 ? (
-            <div className="rounded-[2rem] border border-[#172033]/10 bg-white p-10">
-              <p className="text-lg font-black">The marketplace is ready for its first listing.</p>
+            <div className="rounded-[24px] border border-[#172033]/10 bg-white p-10">
+              <p className="text-lg font-black">
+                The marketplace is ready for its first listing.
+              </p>
+
               <p className="mt-2 text-[#172033]/55">
                 Create a host account and add your first premium asset.
               </p>
+
               <a
                 href="/host/listings/new"
                 className="mt-6 inline-flex rounded-full bg-[#172033] px-6 py-3 font-bold text-white"
@@ -132,31 +171,44 @@ export default async function Home() {
               ))}
             </div>
           )}
+
+          <div className="mt-10 sm:hidden">
+            <a
+              href="/explore"
+              className="inline-flex rounded-full border border-[#172033]/15 bg-white px-5 py-3 text-sm font-bold"
+            >
+              Explore all
+            </a>
+          </div>
         </section>
 
+        {/* TRUST SECTION */}
         <section className="border-t border-[#172033]/10 bg-white">
-          <div className="mx-auto grid max-w-7xl gap-8 px-6 py-14 md:grid-cols-3">
+          <div className="mx-auto grid max-w-7xl gap-8 px-6 py-12 md:grid-cols-3">
             <div>
               <p className="text-sm font-black">Premium inventory</p>
+
               <p className="mt-2 text-sm leading-6 text-[#172033]/55">
-                From exotic vehicles to private experiences, Velora is built for assets
-                beyond ordinary rentals.
+                Discover distinctive vehicles, vessels and experiences from
+                Velora hosts.
               </p>
             </div>
 
             <div>
               <p className="text-sm font-black">Built around trust</p>
+
               <p className="mt-2 text-sm leading-6 text-[#172033]/55">
-                Host profiles, booking controls and marketplace safeguards create a more
-                confident rental experience.
+                Profiles, booking controls and marketplace safeguards help
+                create a more confident rental experience.
               </p>
             </div>
 
             <div>
-              <p className="text-sm font-black">One marketplace</p>
+              <p className="text-sm font-black">One destination</p>
+
               <p className="mt-2 text-sm leading-6 text-[#172033]/55">
-                Cars, yachts, boats, aircraft, RVs and party rides can all live under one
-                Velora account.
+                Exotic cars, yachts, aircraft, RVs and party rides together
+                in one premium marketplace.
               </p>
             </div>
           </div>
