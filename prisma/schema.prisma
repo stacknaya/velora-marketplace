@@ -71,6 +71,7 @@ model Listing {
   title           String
   description     String
   category        AssetCategory
+assetSubtype String?
   status          ListingStatus @default(PENDING_REVIEW)
   make            String?
   model           String?
