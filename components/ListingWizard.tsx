@@ -61,13 +61,13 @@ export default function ListingWizard() {
 
   const categoryLabel = useMemo(() => {
     const map: Record<string, string> = {
-      CAR: "Exotic Car",
-      BOAT: "Boat",
-      YACHT: "Yacht",
-      RV: "RV",
-      AIRCRAFT: "Aircraft",
-      PARTY_RIDE: "Party Ride"
-    };
+  CAR: "Specialty Vehicle",
+  BOAT: "Watercraft",
+  YACHT: "Watercraft",
+  RV: "RV",
+  AIRCRAFT: "Air Taxi",
+  PARTY_RIDE: "Party Ride",
+};
     return map[form.category] || "Asset";
   }, [form.category]);
 
@@ -106,13 +106,12 @@ export default function ListingWizard() {
             <p className="mt-2 text-black/60">Choose an asset category.</p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {[
-                ["CAR", "Exotic Car"],
-                ["BOAT", "Boat"],
-                ["YACHT", "Yacht"],
-                ["RV", "RV"],
-                ["AIRCRAFT", "Aircraft"],
-                ["PARTY_RIDE", "Party Ride"]
-              ].map(([value, label]) => (
+  ["CAR", "Specialty Vehicle"],
+  ["BOAT", "Watercraft"],
+  ["RV", "RV"],
+  ["AIRCRAFT", "Air Taxi"],
+  ["PARTY_RIDE", "Party Ride"]
+].map(([value, label]) => (
                 <button
                   key={value}
                   type="button"
@@ -131,6 +130,33 @@ export default function ListingWizard() {
         {step === 1 && (
           <div>
             <h2 className="text-3xl font-black">{categoryLabel} details</h2>
+            {(form.category === "BOAT" || form.category === "YACHT") && (
+  <div className="sm:col-span-2">
+    <label className="mb-2 block text-sm font-bold">
+      Watercraft type
+    </label>
+
+    <div className="grid grid-cols-2 gap-3">
+      {[
+        ["BOAT", "Boat"],
+        ["YACHT", "Yacht"],
+      ].map(([value, label]) => (
+        <button
+          key={value}
+          type="button"
+          onClick={() => update("category", value)}
+          className={`rounded-2xl border p-4 text-left font-bold ${
+            form.category === value
+              ? "border-black bg-black text-white"
+              : "border-black/10 bg-white hover:border-black/30"
+          }`}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  </div>
+)}
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               {isPartyRide && (
                 <select
