@@ -17,6 +17,8 @@ export async function createListing(formData: FormData) {
 
   const title = String(formData.get("title") || "").trim();
   const category = String(formData.get("category") || "CAR") as "CAR" | "BOAT" | "YACHT" | "RV" | "AIRCRAFT" | "PARTY_RIDE";
+  const assetSubtype =
+  String(formData.get("assetSubtype") || "").trim() || null;
   const city = String(formData.get("city") || "").trim();
   const state = String(formData.get("state") || "").trim();
   const description = String(formData.get("description") || "").trim();
@@ -65,6 +67,7 @@ export async function createListing(formData: FormData) {
       title,
       description: description || `${title} available in ${city}, ${state}.`,
       category,
+      assetSubtype,
       city,
       state,
       make: make || null,
