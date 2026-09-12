@@ -226,6 +226,38 @@ export default function ListingWizard() {
     </div>
   </div>
 )}
+            {form.category === "RV" && (
+  <div className="sm:col-span-2">
+    <label className="mb-2 block text-sm font-bold">
+      RV type
+    </label>
+
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {[
+        ["CLASS_A", "Class A Motorhome"],
+        ["CLASS_B", "Class B / Camper Van"],
+        ["CLASS_C", "Class C Motorhome"],
+        ["TRAVEL_TRAILER", "Travel Trailer"],
+        ["FIFTH_WHEEL", "Fifth Wheel"],
+        ["LUXURY_COACH", "Luxury Coach"],
+        ["OTHER", "Other"],
+      ].map(([value, label]) => (
+        <button
+          key={value}
+          type="button"
+          onClick={() => update("assetSubtype", value)}
+          className={`rounded-2xl border p-4 text-left font-bold ${
+            form.assetSubtype === value
+              ? "border-black bg-black text-white"
+              : "border-black/10 bg-white hover:border-black/30"
+          }`}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  </div>
+)}
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               {isPartyRide && (
                 <select
