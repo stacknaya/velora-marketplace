@@ -190,6 +190,36 @@ export default function ListingWizard() {
     </div>
   </div>
 )}
+            {form.category === "AIRCRAFT" && (
+  <div className="sm:col-span-2">
+    <label className="mb-2 block text-sm font-bold">
+      Air Taxi type
+    </label>
+
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {[
+        ["HELICOPTER", "Helicopter"],
+        ["EVTOL", "eVTOL / Air Taxi"],
+        ["PASSENGER_DRONE", "Passenger Drone"],
+        ["PRIVATE_AIRCRAFT", "Private Aircraft"],
+        ["OTHER", "Other"],
+      ].map(([value, label]) => (
+        <button
+          key={value}
+          type="button"
+          onClick={() => update("assetSubtype", value)}
+          className={`rounded-2xl border p-4 text-left font-bold ${
+            form.assetSubtype === value
+              ? "border-black bg-black text-white"
+              : "border-black/10 bg-white hover:border-black/30"
+          }`}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  </div>
+)}
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               {isPartyRide && (
                 <select
