@@ -153,6 +153,8 @@ model Booking {
   serviceFee Float
   taxes      Float
   total      Float
+hostFee    Float @default(0)
+hostPayout Float @default(0)
   status     BookingStatus @default(PENDING)
 archivedByHost Boolean @default(false)
 cancellationRequestedAt DateTime?
