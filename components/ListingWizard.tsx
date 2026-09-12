@@ -6,6 +6,7 @@ import { createListing } from "@/app/actions/listings";
 
 type FormState = {
   category: string;
+  assetSubtype: string;
   title: string;
   city: string;
   state: string;
@@ -29,6 +30,7 @@ type FormState = {
 
 const initial: FormState = {
   category: "",
+  assetSubtype: "",
   title: "",
   city: "",
   state: "",
@@ -147,6 +149,37 @@ export default function ListingWizard() {
           onClick={() => update("category", value)}
           className={`rounded-2xl border p-4 text-left font-bold ${
             form.category === value
+              ? "border-black bg-black text-white"
+              : "border-black/10 bg-white hover:border-black/30"
+          }`}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  </div>
+)}
+            {form.category === "CAR" && (
+  <div className="sm:col-span-2">
+    <label className="mb-2 block text-sm font-bold">
+      Specialty vehicle type
+    </label>
+
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {[
+        ["EXOTIC_PERFORMANCE", "Exotic & Performance"],
+        ["LUXURY", "Luxury"],
+        ["CLASSIC_ANTIQUE", "Classic & Antique"],
+        ["CUSTOM_TRUCK", "Custom Truck"],
+        ["SPECIALTY_SUV", "Specialty SUV"],
+        ["OTHER", "Other"],
+      ].map(([value, label]) => (
+        <button
+          key={value}
+          type="button"
+          onClick={() => update("assetSubtype", value)}
+          className={`rounded-2xl border p-4 text-left font-bold ${
+            form.assetSubtype === value
               ? "border-black bg-black text-white"
               : "border-black/10 bg-white hover:border-black/30"
           }`}
