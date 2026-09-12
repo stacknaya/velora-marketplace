@@ -138,17 +138,23 @@ export default function ListingWizard() {
       Watercraft type
     </label>
 
-    <div className="grid grid-cols-2 gap-3">
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {[
-        ["BOAT", "Boat"],
+        ["POWERBOAT", "Powerboat"],
+        ["PONTOON", "Pontoon"],
+        ["JET_SKI", "Jet Ski / PWC"],
+        ["SAILBOAT", "Sailboat"],
+        ["FISHING_BOAT", "Fishing Boat"],
         ["YACHT", "Yacht"],
+        ["SUPERYACHT", "Superyacht"],
+        ["OTHER", "Other"],
       ].map(([value, label]) => (
         <button
           key={value}
           type="button"
-          onClick={() => update("category", value)}
+          onClick={() => update("assetSubtype", value)}
           className={`rounded-2xl border p-4 text-left font-bold ${
-            form.category === value
+            form.assetSubtype === value
               ? "border-black bg-black text-white"
               : "border-black/10 bg-white hover:border-black/30"
           }`}
