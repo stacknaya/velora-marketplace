@@ -26,9 +26,23 @@ const hasValidDateRange =
   const listings = await db.listing.findMany({
     where: {
   ...(params.category
-    ? { category: params.category as any }
-    : {}),
-
+  ? {
+      category:
+        params.category === "WATERCRAFT"
+          ? {
+              in: ["BOAT", "YACHT"],
+            }
+          : params.category === "SPECIALTY_VEHICLES"
+          ? "CAR"
+          : params.category === "AIR_TAXI"
+          ? "AIRCRAFT"
+          : params.category === "RVS"
+          ? "RV"
+          : params.category === "PARTY_RIDES"
+          ? "PARTY_RIDE"
+          : (params.category as any),
+    }
+  : {}),
   ...(params.location
     ? {
         OR: [
