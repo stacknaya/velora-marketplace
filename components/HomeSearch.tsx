@@ -90,12 +90,11 @@ export default function HomeSearch() {
               className="mt-1.5 w-full cursor-pointer bg-transparent text-[14px] font-semibold text-[#172033] outline-none"
             >
               <option value="">All experiences</option>
-              <option value="CAR">Exotic cars</option>
-              <option value="BOAT">Boats</option>
-              <option value="YACHT">Yachts</option>
-              <option value="RV">RVs</option>
-              <option value="AIRCRAFT">Aircraft</option>
-              <option value="PARTY_RIDE">Party rides</option>
+<option value="SPECIALTY_VEHICLES">Specialty Vehicles</option>
+<option value="WATERCRAFT">Watercraft</option>
+<option value="RVS">RVs</option>
+<option value="AIR_TAXI">Air Taxi</option>
+<option value="PARTY_RIDES">Party Rides</option>
             </select>
           </label>
 
