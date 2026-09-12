@@ -1,10 +1,29 @@
 const categories = [
-  { value: "CAR", label: "Exotic Cars", icon: "◆" },
-  { value: "BOAT", label: "Boats", icon: "◒" },
-  { value: "YACHT", label: "Yachts", icon: "◇" },
-  { value: "RV", label: "RVs", icon: "▣" },
-  { value: "AIRCRAFT", label: "Aircraft", icon: "✈" },
-  { value: "PARTY_RIDE", label: "Party Rides", icon: "✦" }
+  {
+    value: "SPECIALTY_VEHICLES",
+    label: "Specialty Vehicles",
+    icon: "◆",
+  },
+  {
+    value: "WATERCRAFT",
+    label: "Watercraft",
+    icon: "≈",
+  },
+  {
+    value: "RVS",
+    label: "RVs",
+    icon: "▣",
+  },
+  {
+    value: "AIR_TAXI",
+    label: "Air Taxi",
+    icon: "✦",
+  },
+  {
+    value: "PARTY_RIDES",
+    label: "Party Rides",
+    icon: "✧",
+  },
 ];
 
 export default function CategoryBar() {
@@ -16,9 +35,9 @@ export default function CategoryBar() {
             <a
               key={category.value}
               href={`/explore?category=${category.value}`}
-              className="group flex min-w-[145px] items-center gap-3 whitespace-nowrap rounded-[1.4rem] border border-[#172033]/10 bg-white px-5 py-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#c9a96e] hover:shadow-md"
+              className="group flex min-w-[165px] items-center gap-3 whitespace-nowrap rounded-[1.4rem] border border-[#172033]/10 bg-white px-5 py-4 transition hover:-translate-y-0.5 hover:border-[#c9a96e]/50 hover:shadow-sm"
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#172033] text-lg font-black text-[#e4c994] transition group-hover:bg-[#c9a96e] group-hover:text-[#172033]">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#172033] text-lg font-black text-[#e4c994] transition group-hover:bg-[#c9a96e] group-hover:text-white">
                 {category.icon}
               </div>
 
