@@ -103,9 +103,18 @@ redirect(`/listing/${listing.slug}?error=Those+dates+are+not+available`);
   }
 
   const subtotal = listing.basePrice * units;
-  const serviceFee = subtotal * 0.1;
-  const taxes = 0;
-  const total = subtotal + serviceFee + taxes;
+
+// Guest pays a 10% service fee
+const serviceFee = subtotal * 0.1;
+
+// Velora also keeps 5% from the host side
+const hostFee = subtotal * 0.05;
+
+// Amount owed to the host before any later payout processing
+const hostPayout = subtotal - hostFee;
+
+const taxes = 0;
+const total = subtotal + serviceFee + taxes;
 
   await db.booking.create({
     data: {
@@ -117,6 +126,8 @@ redirect(`/listing/${listing.slug}?error=Those+dates+are+not+available`);
       serviceFee,
       taxes,
       total,
+      hostFee,
+hostPayout,
       status: listing.instantBook ? "CONFIRMED" : "PENDING",
     },
   });
