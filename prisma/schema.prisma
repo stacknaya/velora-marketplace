@@ -61,6 +61,9 @@ model HostProfile {
   phone          String?
   identityStatus String   @default("UNVERIFIED")
   payoutStatus   String   @default("NOT_CONNECTED")
+stripeAccountId       String?  @unique
+stripeChargesEnabled  Boolean  @default(false)
+stripePayoutsEnabled  Boolean  @default(false)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
