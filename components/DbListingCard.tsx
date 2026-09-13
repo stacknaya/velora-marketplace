@@ -6,6 +6,8 @@ export default function DbListingCard({
   listing: {
     slug: string;
     title: string;
+    category: string;
+assetSubtype: string | null;
     city: string;
     state: string;
     basePrice: number;
@@ -60,9 +62,19 @@ export default function DbListingCard({
             </p>
           </div>
 
-          <div className="rounded-full bg-[#f7f3ec] px-3 py-1 text-xs font-black text-[#9a7a45]">
-            Premium
-          </div>
+         <div className="rounded-full bg-[#f7f3ec] px-3 py-1 text-xs font-black text-[#9a7a45]">
+  {listing.assetSubtype
+    ? listing.assetSubtype.replaceAll("_", " ")
+    : listing.category === "CAR"
+    ? "Specialty Vehicle"
+    : listing.category === "BOAT" || listing.category === "YACHT"
+    ? "Watercraft"
+    : listing.category === "AIRCRAFT"
+    ? "Air Taxi"
+    : listing.category === "PARTY_RIDE"
+    ? "Party Ride"
+    : "RV"}
+</div>
         </div>
 
         <div className="mt-5 flex items-end justify-between border-t border-[#172033]/10 pt-4">
