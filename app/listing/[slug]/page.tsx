@@ -99,8 +99,7 @@ export default async function ListingPage({
   ? "RV"
   : listing.category === "AIRCRAFT"
   ? "Air Taxi"
-  : listing.category === "PARTY_RIDE"
-  ? "Party Ride"
+  : "Party Ride"}
   : listing.category.replaceAll("_", " ")}
                 </span>
 
