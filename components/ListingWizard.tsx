@@ -271,6 +271,7 @@ export default function ListingWizard() {
                   <option value="SPRINTER_VIP_VAN">Sprinter / VIP Van</option>
                   <option value="STRETCH_SUV">Stretch SUV</option>
                   <option value="CHAUFFEUR_LUXURY">Chauffeur / Luxury Vehicle</option>
+                  <option value="OTHER">Other</option>
                 </select>
               )}
 
