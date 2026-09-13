@@ -91,7 +91,17 @@ export default async function ListingPage({
             <div>
               <div className="flex flex-wrap items-center gap-3">
                 <span className="rounded-full bg-[#172033] px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-[#e4c994]">
-                  {listing.category.replaceAll("_", " ")}
+                 {listing.category === "CAR"
+  ? "Specialty Vehicle"
+  : listing.category === "BOAT" || listing.category === "YACHT"
+  ? "Watercraft"
+  : listing.category === "RV"
+  ? "RV"
+  : listing.category === "AIRCRAFT"
+  ? "Air Taxi"
+  : listing.category === "PARTY_RIDE"
+  ? "Party Ride"
+  : listing.category.replaceAll("_", " ")}
                 </span>
 
                 {listing.instantBook && (
