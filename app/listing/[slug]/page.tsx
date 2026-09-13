@@ -91,17 +91,16 @@ export default async function ListingPage({
             <div>
               <div className="flex flex-wrap items-center gap-3">
                 <span className="rounded-full bg-[#172033] px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.18em] text-[#e4c994]">
-                 {listing.category === "CAR"
-  ? "Specialty Vehicle"
-  : listing.category === "BOAT" || listing.category === "YACHT"
-  ? "Watercraft"
-  : listing.category === "RV"
-  ? "RV"
-  : listing.category === "AIRCRAFT"
-  ? "Air Taxi"
-  : "Party Ride"}
-  : listing.category.replaceAll("_", " ")}
-                </span>
+  {listing.category === "CAR"
+    ? "Specialty Vehicle"
+    : listing.category === "BOAT" || listing.category === "YACHT"
+    ? "Watercraft"
+    : listing.category === "RV"
+    ? "RV"
+    : listing.category === "AIRCRAFT"
+    ? "Air Taxi"
+    : "Party Ride"}
+</span>
 
                 {listing.instantBook && (
                   <span className="rounded-full border border-[#c9a96e]/40 bg-[#fffaf1] px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.16em] text-[#9a7a45]">
