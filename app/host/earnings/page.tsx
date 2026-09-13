@@ -43,35 +43,33 @@ export default async function EarningsPage() {
     },
   });
 
-  const activeBookings = bookings.filter(
+  const confirmedAndCompleted = bookings.filter(
+  (booking) =>
+    booking.status === "CONFIRMED" ||
+    booking.status === "COMPLETED"
+);
+
+const grossBookings = confirmedAndCompleted.reduce(
+  (sum, booking) => sum + booking.subtotal,
+  0
+);
+
+const veloraHostFees = confirmedAndCompleted.reduce(
+  (sum, booking) => sum + booking.hostFee,
+  0
+);
+
+const completedEarnings = bookings
+  .filter((booking) => booking.status === "COMPLETED")
+  .reduce((sum, booking) => sum + booking.hostPayout, 0);
+
+const upcomingPayout = bookings
+  .filter(
     (booking) =>
-      booking.status !== "CANCELLED" &&
-      booking.status !== "DISPUTED"
-  );
-
-  const grossBookings = activeBookings.reduce(
-    (sum, booking) => sum + booking.subtotal,
-    0
-  );
-
-  const veloraHostFees = activeBookings.reduce(
-    (sum, booking) => sum + booking.hostFee,
-    0
-  );
-
-  const hostPayout = activeBookings.reduce(
-    (sum, booking) => sum + booking.hostPayout,
-    0
-  );
-
-  const upcomingPayout = activeBookings
-    .filter(
-      (booking) =>
-        booking.status === "PENDING" ||
-        booking.status === "CONFIRMED"
-    )
-    .reduce((sum, booking) => sum + booking.hostPayout, 0);
-
+      booking.status === "PENDING" ||
+      booking.status === "CONFIRMED"
+  )
+  .reduce((sum, booking) => sum + booking.hostPayout, 0);
   return (
     <HostShell>
       <div className="w-full">
@@ -119,15 +117,15 @@ export default async function EarningsPage() {
 
           <div className="rounded-[22px] border border-[#172033]/10 bg-white p-6">
             <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#172033]/40">
-              Host earnings
+              Completed earnings
             </p>
 
             <p className="mt-3 text-3xl font-bold tracking-tight text-[#172033]">
-              {money(hostPayout)}
+              {money(completedEarnings)}
             </p>
 
             <p className="mt-2 text-[12px] text-[#172033]/45">
-              After Velora host fee
+              Completed reservations only
             </p>
           </div>
 
