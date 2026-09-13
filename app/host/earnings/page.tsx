@@ -2,6 +2,7 @@ import HostShell from "@/components/HostShell";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { startStripeOnboarding } from "@/app/actions/stripe-connect";
 
 function money(value: number) {
   return new Intl.NumberFormat("en-US", {
@@ -84,6 +85,14 @@ const upcomingPayout = bookings
         <p className="mt-2 max-w-2xl text-[13px] leading-6 text-[#172033]/55">
           Track booking revenue, Velora host fees, and your expected payouts.
         </p>
+        <form action={startStripeOnboarding} className="mt-5">
+  <button
+    type="submit"
+    className="rounded-xl bg-[#172033] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+  >
+    Set up payouts
+  </button>
+</form>
 
         {/* SUMMARY */}
         <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
