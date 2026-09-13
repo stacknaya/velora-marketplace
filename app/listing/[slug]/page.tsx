@@ -166,6 +166,20 @@ export default async function ListingPage({
                 </h2>
 
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                  {listing.assetSubtype && (
+  <div className="rounded-[1.7rem] border border-[#172033]/10 bg-white p-6">
+    <span className="text-[11px] font-black uppercase tracking-widest text-[#172033]/40">
+      Asset type
+    </span>
+
+    <p className="mt-2 font-black">
+      {listing.assetSubtype
+        .replaceAll("_", " ")
+        .toLowerCase()
+        .replace(/\b\w/g, (char) => char.toUpperCase())}
+    </p>
+  </div>
+)}
 
                   <div className="rounded-[1.7rem] border border-[#172033]/10 bg-white p-6">
                     <span className="text-[11px] font-black uppercase tracking-widest text-[#172033]/40">
