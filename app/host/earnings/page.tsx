@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { startStripeOnboarding } from "@/app/actions/stripe-connect";
+import { stripe } from "@/lib/stripe";
 
 function money(value: number) {
   return new Intl.NumberFormat("en-US", {
@@ -25,6 +26,23 @@ export default async function EarningsPage() {
   if (!user) {
     redirect("/sign-in");
   }
+  const hostProfile = await db.hostProfile.findUnique({
+  where: {
+    userId: user.id,
+  },
+});
+
+let stripePayoutsReady = false;
+
+if (hostProfile?.stripeAccountId) {
+  const stripeAccount = await stripe.accounts.retrieve(
+    hostProfile.stripeAccountId
+  );
+
+  stripePayoutsReady =
+    stripeAccount.payouts_enabled === true &&
+    stripeAccount.details_submitted === true;
+}
 
   const bookings = await db.booking.findMany({
     where: {
@@ -85,14 +103,22 @@ const upcomingPayout = bookings
         <p className="mt-2 max-w-2xl text-[13px] leading-6 text-[#172033]/55">
           Track booking revenue, Velora host fees, and your expected payouts.
         </p>
-        <form action={startStripeOnboarding} className="mt-5">
-  <button
-    type="submit"
-    className="rounded-xl bg-[#172033] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
-  >
-    Set up payouts
-  </button>
-</form>
+        {stripePayoutsReady ? (
+  <div className="mt-5">
+    <div className="inline-flex items-center rounded-xl bg-green-50 px-4 py-3 text-sm font-semibold text-green-700">
+      Payouts connected
+    </div>
+  </div>
+) : (
+  <form action={startStripeOnboarding} className="mt-5">
+    <button
+      type="submit"
+      className="rounded-xl bg-[#172033] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+    >
+      Set up payouts
+    </button>
+  </form>
+)}
 
         {/* SUMMARY */}
         <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
