@@ -2,7 +2,10 @@ import HostShell from "@/components/HostShell";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { startStripeOnboarding } from "@/app/actions/stripe-connect";
+import {
+  startStripeOnboarding,
+  manageStripePayouts,
+} from "@/app/actions/stripe-connect";
 import { stripe } from "@/lib/stripe";
 
 function money(value: number) {
@@ -104,10 +107,19 @@ const upcomingPayout = bookings
           Track booking revenue, Velora host fees, and your expected payouts.
         </p>
         {stripePayoutsReady ? (
-  <div className="mt-5">
+  <div className="mt-5 flex items-center gap-3">
     <div className="inline-flex items-center rounded-xl bg-green-50 px-4 py-3 text-sm font-semibold text-green-700">
       Payouts connected
     </div>
+
+    <form action={manageStripePayouts}>
+      <button
+        type="submit"
+        className="rounded-xl border border-[#172033]/15 bg-white px-5 py-3 text-sm font-semibold text-[#172033] transition hover:bg-[#f7f3ec]"
+      >
+        Manage payouts
+      </button>
+    </form>
   </div>
 ) : (
   <form action={startStripeOnboarding} className="mt-5">
