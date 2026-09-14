@@ -46,8 +46,10 @@ export async function POST(request: NextRequest) {
           stripeAccountId: account.id,
         },
         data: {
-          payoutStatus: payoutsReady ? "READY" : "PENDING",
-        },
+  payoutStatus: payoutsReady ? "READY" : "PENDING",
+  stripeChargesEnabled: account.charges_enabled === true,
+  stripePayoutsEnabled: account.payouts_enabled === true,
+},
       });
     }
 
