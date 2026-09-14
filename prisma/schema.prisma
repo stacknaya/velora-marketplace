@@ -158,6 +158,9 @@ model Booking {
   taxes      Float
   total      Float
 hostFee    Float @default(0)
+payoutEligibleAt DateTime?
+payoutReleasedAt DateTime?
+stripeTransferId String?
 hostPayout Float @default(0)
   status     BookingStatus @default(PENDING)
 archivedByHost Boolean @default(false)
