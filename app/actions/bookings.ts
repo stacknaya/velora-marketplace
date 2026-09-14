@@ -160,11 +160,15 @@ export async function approveBooking(bookingId: string) {
     redirect("/host/reservations");
   }
 
+  const payoutEligibleAt = new Date(
+  booking.startAt.getTime() + 24 * 60 * 60 * 1000
+);
   await db.booking.update({
     where: { id: bookingId },
     data: {
-      status: "CONFIRMED",
-    },
+  status: "CONFIRMED",
+  payoutEligibleAt,
+},
   });
 
   revalidatePath("/host/reservations");
