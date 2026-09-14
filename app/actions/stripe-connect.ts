@@ -62,3 +62,27 @@ return_url: `${appUrl}/host/earnings`,
 
   redirect(accountLink.url);
 }
+
+export async function manageStripePayouts() {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    throw new Error("You must be signed in.");
+  }
+
+  const hostProfile = await db.hostProfile.findUnique({
+    where: {
+      userId: user.id,
+    },
+  });
+
+  if (!hostProfile?.stripeAccountId) {
+    throw new Error("Stripe payout account is not connected.");
+  }
+
+  const loginLink = await stripe.accounts.createLoginLink(
+    hostProfile.stripeAccountId
+  );
+
+  redirect(loginLink.url);
+}
