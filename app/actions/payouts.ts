@@ -57,15 +57,20 @@ export async function releaseEligiblePayouts() {
     }
 
     try {
-      const transfer = await stripe.transfers.create({
-        amount: payoutAmount,
-        currency: "usd",
-        destination: stripeAccountId,
-        metadata: {
-          bookingId: booking.id,
-          listingId: booking.listingId,
-        },
-      });
+      const transfer = await stripe.transfers.create(
+  {
+    amount: payoutAmount,
+    currency: "usd",
+    destination: stripeAccountId,
+    metadata: {
+      bookingId: booking.id,
+      listingId: booking.listingId,
+    },
+  },
+  {
+    idempotencyKey: `velora-booking-payout-${booking.id}`,
+  }
+);
 
       await db.booking.update({
         where: {
