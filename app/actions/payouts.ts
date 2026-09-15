@@ -8,12 +8,17 @@ export async function releaseEligiblePayouts() {
 
   const bookings = await db.booking.findMany({
     where: {
-      status: "CONFIRMED",
+      status: {
+        in: ["CONFIRMED", "COMPLETED"],
+      },
       payoutEligibleAt: {
         lte: now,
       },
       payoutReleasedAt: null,
       stripeTransferId: null,
+      hostPayout: {
+        gt: 0,
+      },
     },
     include: {
       listing: {
@@ -28,17 +33,27 @@ export async function releaseEligiblePayouts() {
     },
   });
 
-  const results = [];
+  const results: Array<{
+    bookingId: string;
+    success: boolean;
+    transferId?: string;
+    error?: string;
+  }> = [];
+
+  let released = 0;
+  let failed = 0;
 
   for (const booking of bookings) {
-    const stripeAccountId =
-      booking.listing.host.hostProfile?.stripeAccountId;
+    const hostProfile = booking.listing.host.hostProfile;
+    const stripeAccountId = hostProfile?.stripeAccountId;
 
     if (!stripeAccountId) {
+      failed++;
+
       results.push({
         bookingId: booking.id,
         success: false,
-        error: "Host does not have a Stripe account.",
+        error: "Host does not have a connected Stripe account.",
       });
 
       continue;
@@ -46,11 +61,13 @@ export async function releaseEligiblePayouts() {
 
     const payoutAmount = Math.round(booking.hostPayout * 100);
 
-    if (payoutAmount <= 0) {
+    if (!Number.isSafeInteger(payoutAmount) || payoutAmount <= 0) {
+      failed++;
+
       results.push({
         bookingId: booking.id,
         success: false,
-        error: "Invalid payout amount.",
+        error: "Invalid host payout amount.",
       });
 
       continue;
@@ -58,19 +75,20 @@ export async function releaseEligiblePayouts() {
 
     try {
       const transfer = await stripe.transfers.create(
-  {
-    amount: payoutAmount,
-    currency: "usd",
-    destination: stripeAccountId,
-    metadata: {
-      bookingId: booking.id,
-      listingId: booking.listingId,
-    },
-  },
-  {
-    idempotencyKey: `velora-booking-payout-${booking.id}`,
-  }
-);
+        {
+          amount: payoutAmount,
+          currency: "usd",
+          destination: stripeAccountId,
+          metadata: {
+            bookingId: booking.id,
+            listingId: booking.listingId,
+            hostId: booking.listing.hostId,
+          },
+        },
+        {
+          idempotencyKey: `velora-booking-payout-${booking.id}`,
+        }
+      );
 
       await db.booking.update({
         where: {
@@ -82,12 +100,16 @@ export async function releaseEligiblePayouts() {
         },
       });
 
+      released++;
+
       results.push({
         bookingId: booking.id,
         success: true,
         transferId: transfer.id,
       });
     } catch (error) {
+      failed++;
+
       console.error(
         `Stripe payout failed for booking ${booking.id}:`,
         error
@@ -101,5 +123,10 @@ export async function releaseEligiblePayouts() {
     }
   }
 
-  return results;
+  return {
+    eligible: bookings.length,
+    released,
+    failed,
+    results,
+  };
 }
