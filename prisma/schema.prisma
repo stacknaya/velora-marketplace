@@ -157,6 +157,10 @@ model Booking {
   serviceFee Float
   taxes      Float
   total      Float
+  stripePaymentIntentId String? @unique
+  stripePaymentStatus   String?
+  paidAt                 DateTime?
+  refundedAt             DateTime?
 hostFee    Float @default(0)
 payoutEligibleAt DateTime?
 payoutReleasedAt DateTime?
