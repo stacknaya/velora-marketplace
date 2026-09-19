@@ -52,6 +52,59 @@ export async function POST(request: NextRequest) {
 },
       });
     }
+        if (event.type === "checkout.session.completed") {
+      const session = event.data.object as Stripe.Checkout.Session;
+
+      const bookingId = session.metadata?.bookingId;
+
+      if (!bookingId) {
+        console.error(
+          "Stripe Checkout session completed without bookingId metadata"
+        );
+      } else {
+        const booking = await db.booking.findUnique({
+          where: {
+            id: bookingId,
+          },
+          include: {
+            listing: true,
+          },
+        });
+
+        if (!booking) {
+          console.error(
+            `Booking ${bookingId} not found for completed Stripe Checkout session`
+          );
+        } else if (session.payment_status === "paid") {
+          const paymentIntentId =
+            typeof session.payment_intent === "string"
+              ? session.payment_intent
+              : session.payment_intent?.id ?? null;
+
+          const payoutEligibleAt = booking.listing.instantBook
+            ? new Date(
+                booking.startAt.getTime() +
+                  24 * 60 * 60 * 1000
+              )
+            : null;
+
+          await db.booking.update({
+            where: {
+              id: booking.id,
+            },
+            data: {
+              stripePaymentIntentId: paymentIntentId,
+              stripePaymentStatus: "PAID",
+              paidAt: new Date(),
+              status: booking.listing.instantBook
+                ? "CONFIRMED"
+                : "PENDING",
+              payoutEligibleAt,
+            },
+          });
+        }
+      }
+        }
 
     return NextResponse.json({ received: true });
   } catch (error) {
