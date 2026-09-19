@@ -117,8 +117,6 @@ const hostPayout = subtotal - hostFee;
 const taxes = 0;
 const total = subtotal + serviceFee + taxes;
 
-  await db.booking.create({
-    data: {
   const booking = await db.booking.create({
   data: {
     listingId,
