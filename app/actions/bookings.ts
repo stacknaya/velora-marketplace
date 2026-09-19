@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { stripe } from "@/lib/stripe";
 
 export async function createBooking(listingId: string, formData: FormData) 
 {
@@ -118,25 +119,71 @@ const total = subtotal + serviceFee + taxes;
 
   await db.booking.create({
     data: {
-      listingId,
-      guestId: user.id,
-      startAt,
-      endAt,
-      subtotal,
-      serviceFee,
-      taxes,
-      total,
-      hostFee,
-hostPayout,
-      status: listing.instantBook ? "CONFIRMED" : "PENDING",
+  const booking = await db.booking.create({
+  data: {
+    listingId,
+    guestId: user.id,
+    startAt,
+    endAt,
+    subtotal,
+    serviceFee,
+    taxes,
+    total,
+    hostFee,
+    hostPayout,
+    status: "PENDING",
+    stripePaymentStatus: "UNPAID",
+  },
+});
+
+const origin =
+  process.env.NEXT_PUBLIC_APP_URL ||
+  process.env.NEXTAUTH_URL;
+
+if (!origin) {
+  throw new Error("Application URL is not configured");
+}
+
+const checkoutSession = await stripe.checkout.sessions.create({
+  mode: "payment",
+
+  line_items: [
+    {
+      price_data: {
+        currency: "usd",
+
+        product_data: {
+          name: listing.title,
+          description: `Velora reservation`,
+        },
+
+        unit_amount: Math.round(total * 100),
+      },
+
+      quantity: 1,
     },
-  });
+  ],
 
-  revalidatePath("/trips");
-  revalidatePath("/host/reservations");
-  revalidatePath(`/listing/${listing.slug}`);
+  metadata: {
+    bookingId: booking.id,
+  },
 
-  redirect("/trips");
+  payment_intent_data: {
+    metadata: {
+      bookingId: booking.id,
+    },
+  },
+
+  success_url: `${origin}/trips?payment=success`,
+  cancel_url: `${origin}/listing/${listing.slug}?payment=cancelled`,
+});
+
+if (!checkoutSession.url) {
+  throw new Error("Stripe Checkout URL was not created");
+}
+
+redirect(checkoutSession.url);
+  
 }
 export async function approveBooking(bookingId: string) {
   const user = await getCurrentUser();
