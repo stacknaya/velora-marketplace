@@ -157,7 +157,7 @@ model Booking {
   serviceFee Float
   taxes      Float
   total      Float
-  stripePaymentIntentId String? @unique
+  stripePaymentIntentId String?
   stripePaymentStatus   String?
   paidAt                 DateTime?
   refundedAt             DateTime?
