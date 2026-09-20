@@ -220,12 +220,21 @@ const estimatedRefund =
       </div>
     )}
 
+  <div className="flex items-center gap-4">
+  <a
+    href={`/trips/${booking.id}`}
+    className="rounded-full bg-[#172033] px-4 py-2 text-sm font-black text-white transition hover:bg-[#172033]/90"
+  >
+    View booking →
+  </a>
+
   <a
     href={`/listing/${booking.listing.slug}`}
     className="text-sm font-black text-[#9a7a45]"
   >
     View listing →
   </a>
+</div>
 </div>
 </div>
                     </div>
