@@ -376,11 +376,41 @@ export async function approveCancellationRequest(bookingId: string) {
     redirect("/host/reservations");
   }
 
+  if (!booking.stripePaymentIntentId) {
+    throw new Error("Booking does not have a Stripe payment.");
+  }
+
+  const refundPct = booking.cancellationRefundPct ?? 0;
+
+  if (refundPct <= 0 || refundPct > 100) {
+    throw new Error("Invalid cancellation refund percentage.");
+  }
+
+  const refundAmount = Math.round(
+    booking.total * (refundPct / 100) * 100
+  );
+
+  if (refundAmount <= 0) {
+    throw new Error("Invalid refund amount.");
+  }
+
+  const refund = await stripe.refunds.create({
+    payment_intent: booking.stripePaymentIntentId,
+    amount: refundAmount,
+    metadata: {
+      bookingId: booking.id,
+      refundPct: String(refundPct),
+    },
+  });
+
   await db.booking.update({
     where: { id: bookingId },
     data: {
       status: "CANCELLED",
       cancellationRequested: false,
+      stripePaymentStatus:
+        refundPct === 100 ? "REFUNDED" : "PARTIALLY_REFUNDED",
+      refundedAt: new Date(),
     },
   });
 
@@ -389,7 +419,6 @@ export async function approveCancellationRequest(bookingId: string) {
 
   redirect("/host/reservations");
 }
-
 export async function declineCancellationRequest(bookingId: string) {
   const user = await getCurrentUser();
 
