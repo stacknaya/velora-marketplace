@@ -8,13 +8,14 @@ export async function releaseEligiblePayouts() {
 
   const bookings = await db.booking.findMany({
     where: {
-      status: "CONFIRMED",
-      payoutEligibleAt: {
-        lte: now,
-      },
-      payoutReleasedAt: null,
-      stripeTransferId: null,
-    },
+  status: "CONFIRMED",
+  stripePaymentStatus: "PAID",
+  payoutEligibleAt: {
+    lte: now,
+  },
+  payoutReleasedAt: null,
+  stripeTransferId: null,
+},
     include: {
       listing: {
         include: {
