@@ -40,11 +40,11 @@ export default async function Header() {
           </Link>
 
           <Link
-            href="/trips"
-            className="rounded-full px-4 py-2 text-sm font-semibold text-[#172033]/65 transition hover:bg-white hover:text-[#172033]"
-          >
-            Trips
-          </Link>
+  href="/reservations"
+  className="rounded-full px-4 py-2 text-sm font-semibold text-[#172033]/65 transition hover:bg-white hover:text-[#172033]"
+>
+  Reservations
+</Link>
 
           <Link
             href="/messages"
