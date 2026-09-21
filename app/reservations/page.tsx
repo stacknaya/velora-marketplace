@@ -222,7 +222,7 @@ const estimatedRefund =
 
   <div className="flex items-center gap-4">
   <a
-    href={`/trips/${booking.id}`}
+    href={`/reservations/${booking.id}`}
     className="rounded-full bg-[#172033] px-4 py-2 text-sm font-black text-white transition hover:bg-[#172033]/90"
   >
     View booking →
