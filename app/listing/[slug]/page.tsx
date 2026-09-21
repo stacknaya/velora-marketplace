@@ -299,12 +299,13 @@ export default async function ListingPage({
 
               {/* Booking calendar */}
               <BookingForm
-                action={createBooking.bind(null, listing.id)}
-                advanceNoticeHr={listing.advanceNoticeHr}
-                minDays={listing.minDays}
-                unavailableRanges={unavailableRanges}
-              />
-
+  action={createBooking.bind(null, listing.id)}
+  advanceNoticeHr={listing.advanceNoticeHr}
+  minDays={listing.minDays}
+  unavailableRanges={unavailableRanges}
+  basePrice={listing.basePrice}
+  priceUnit={listing.priceUnit}
+/>
               <p className="mt-4 text-center text-xs leading-5 text-[#172033]/45">
                 Your reservation request is submitted securely through Velora.
               </p>
