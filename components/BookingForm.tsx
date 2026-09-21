@@ -67,6 +67,8 @@ const [termsAccepted, setTermsAccepted] = useState(false);
   const minimumBookingMet =
     Boolean(range?.from && range?.to) &&
     bookingDays >= minDays;
+    
+    const estimatedTotal = bookingDays * basePrice;
 
   return (
     <form action={action}>
