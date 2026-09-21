@@ -355,18 +355,28 @@ className="relative w-full"
 </label>    </div>
   </div>
 )}
-        <button
-          type="button"
-          onClick={() => setShowReview(true)}
-          disabled={
-            !range?.from ||
-            !range?.to ||
-            !minimumBookingMet
-          }
-          className="mt-6 w-full rounded-[1.2rem] bg-[#172033] px-5 py-4 text-base font-black text-white transition hover:bg-[#24304a] disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          Reserve
-        </button>
+        {!showReview ? (
+  <button
+    type="button"
+    onClick={() => setShowReview(true)}
+    disabled={
+      !range?.from ||
+      !range?.to ||
+      !minimumBookingMet
+    }
+    className="mt-6 w-full rounded-[1.2rem] bg-[#172033] px-5 py-4 text-base font-black text-white transition hover:bg-[#24304a] disabled:cursor-not-allowed disabled:opacity-40"
+  >
+    Review reservation
+  </button>
+) : (
+  <button
+    type="submit"
+    disabled={!termsAccepted}
+    className="mt-6 w-full rounded-[1.2rem] bg-[#172033] px-5 py-4 text-base font-black text-white transition hover:bg-[#24304a] disabled:cursor-not-allowed disabled:opacity-40"
+  >
+    Confirm & Pay ${estimatedTotal.toLocaleString()}
+  </button>
+)}
       </div>
     </form>
   );
