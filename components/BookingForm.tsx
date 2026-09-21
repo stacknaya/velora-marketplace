@@ -289,7 +289,8 @@ className="relative w-full"
           )}
 
         <button
-          type="submit"
+          type="button"
+          onClick={() => setShowReview(true)}
           disabled={
             !range?.from ||
             !range?.to ||
