@@ -288,6 +288,65 @@ className="relative w-full"
             </p>
           )}
 
+        {showReview && range?.from && range?.to && (
+  <div className="mt-6 rounded-[1.6rem] border border-[#c9a96e]/40 bg-[#fffaf1] p-5">
+    <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#9a7a45]">
+      Review your reservation
+    </p>
+
+    <h3 className="mt-2 text-xl font-black text-[#172033]">
+      Confirm your booking details
+    </h3>
+
+    <div className="mt-5 space-y-3 text-sm">
+      <div className="flex justify-between gap-4">
+        <span className="text-[#172033]/60">Start date</span>
+        <span className="font-black text-[#172033]">
+          {range.from.toLocaleDateString()}
+        </span>
+      </div>
+
+      <div className="flex justify-between gap-4">
+        <span className="text-[#172033]/60">End date</span>
+        <span className="font-black text-[#172033]">
+          {range.to.toLocaleDateString()}
+        </span>
+      </div>
+
+      <div className="flex justify-between gap-4">
+        <span className="text-[#172033]/60">Rental length</span>
+        <span className="font-black text-[#172033]">
+          {bookingDays} day{bookingDays === 1 ? "" : "s"}
+        </span>
+      </div>
+
+      <div className="flex justify-between gap-4">
+        <span className="text-[#172033]/60">
+          ${basePrice.toLocaleString()} / {priceUnit.toLowerCase()}
+        </span>
+        <span className="font-black text-[#172033]">
+          ${estimatedTotal.toLocaleString()}
+        </span>
+      </div>
+    </div>
+
+    <div className="mt-5 border-t border-[#172033]/10 pt-4">
+      <div className="flex items-center justify-between">
+        <span className="font-black text-[#172033]">
+          Estimated total
+        </span>
+
+        <span className="text-xl font-black text-[#172033]">
+          ${estimatedTotal.toLocaleString()}
+        </span>
+      </div>
+
+      <p className="mt-2 text-xs text-[#172033]/50">
+        Final pricing and applicable fees will be confirmed at checkout.
+      </p>
+    </div>
+  </div>
+)}
         <button
           type="button"
           onClick={() => setShowReview(true)}
