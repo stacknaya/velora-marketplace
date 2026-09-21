@@ -75,30 +75,46 @@ export async function POST(request: NextRequest) {
           console.error(
             `Booking ${bookingId} not found for completed Stripe Checkout session`
           );
-        } else if (session.payment_status === "paid") {
-          const paymentIntentId =
-            typeof session.payment_intent === "string"
-              ? session.payment_intent
-              : session.payment_intent?.id ?? null;
+        } else {
+  const paymentIntentId =
+    typeof session.payment_intent === "string"
+      ? session.payment_intent
+      : session.payment_intent?.id ?? null;
 
-          const payoutEligibleAt = new Date(
-  booking.startAt.getTime() +
-  24 * 60 * 60 * 1000
-);
+  if (!paymentIntentId) {
+    console.error(
+      `Stripe Checkout session completed without payment intent for booking ${booking.id}`
+    );
+  } else if (booking.listing.instantBook) {
+    const payoutEligibleAt = new Date(
+      booking.startAt.getTime() + 24 * 60 * 60 * 1000
+    );
 
-          await db.booking.update({
-            where: {
-              id: booking.id,
-            },
-            data: {
-              stripePaymentIntentId: paymentIntentId,
-              stripePaymentStatus: "PAID",
-              paidAt: new Date(),
-              status: "CONFIRMED",
-              payoutEligibleAt,
-            },
-          });
-        }
+    await db.booking.update({
+      where: {
+        id: booking.id,
+      },
+      data: {
+        stripePaymentIntentId: paymentIntentId,
+        stripePaymentStatus: "PAID",
+        paidAt: new Date(),
+        status: "CONFIRMED",
+        payoutEligibleAt,
+      },
+    });
+  } else {
+    await db.booking.update({
+      where: {
+        id: booking.id,
+      },
+      data: {
+        stripePaymentIntentId: paymentIntentId,
+        stripePaymentStatus: "AUTHORIZED",
+        status: "PENDING",
+      },
+    });
+  }
+}
       }
         }
 
