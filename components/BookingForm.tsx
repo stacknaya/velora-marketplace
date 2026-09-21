@@ -21,7 +21,8 @@ export default function BookingForm({
   }[];
   basePrice: number;
   priceUnit: string;
-}) {  const [range, setRange] = useState<DateRange | undefined>();
+}) {  const [showReview, setShowReview] = useState(false);
+const [termsAccepted, setTermsAccepted] = useState(false);
 
   const earliestBookingDate = new Date();
   earliestBookingDate.setHours(
