@@ -7,7 +7,7 @@ import {
   requestBookingCancellation
 } from "@/app/actions/bookings";
 
-export default async function TripsPage() {
+export default async function ReservationsPage() {
   const user = await getCurrentUser();
 
   if (!user) {
@@ -55,7 +55,7 @@ export default async function TripsPage() {
           {bookings.length === 0 ? (
             <div className="mt-10 rounded-[2rem] border border-[#172033]/10 bg-white p-8">
               <h2 className="text-xl font-black">
-                No trips yet
+                No reservations yet
               </h2>
 
               <p className="mt-2 text-[#172033]/55">
