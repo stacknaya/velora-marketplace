@@ -94,9 +94,7 @@ export async function POST(request: NextRequest) {
               stripePaymentIntentId: paymentIntentId,
               stripePaymentStatus: "PAID",
               paidAt: new Date(),
-              status: booking.listing.instantBook
-                ? "CONFIRMED",
-              
+              status: "CONFIRMED",
               payoutEligibleAt,
             },
           });
