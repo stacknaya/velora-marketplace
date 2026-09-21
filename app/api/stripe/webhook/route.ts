@@ -81,12 +81,10 @@ export async function POST(request: NextRequest) {
               ? session.payment_intent
               : session.payment_intent?.id ?? null;
 
-          const payoutEligibleAt = booking.listing.instantBook
-            ? new Date(
-                booking.startAt.getTime() +
-                  24 * 60 * 60 * 1000
-              )
-            : null;
+          const payoutEligibleAt = new Date(
+  booking.startAt.getTime() +
+  24 * 60 * 60 * 1000
+);
 
           await db.booking.update({
             where: {
@@ -97,8 +95,8 @@ export async function POST(request: NextRequest) {
               stripePaymentStatus: "PAID",
               paidAt: new Date(),
               status: booking.listing.instantBook
-                ? "CONFIRMED"
-                : "PENDING",
+                ? "CONFIRMED",
+              
               payoutEligibleAt,
             },
           });
