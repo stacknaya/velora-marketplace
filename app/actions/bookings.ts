@@ -172,7 +172,7 @@ const checkoutSession = await stripe.checkout.sessions.create({
     },
   },
 
-  success_url: `${origin}/trips?payment=success`,
+  success_url: `${origin}/reservations?payment=success`,
   cancel_url: `${origin}/listing/${listing.slug}?payment=cancelled`,
 });
 
