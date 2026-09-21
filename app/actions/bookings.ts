@@ -243,8 +243,6 @@ export async function approveBooking(bookingId: string) {
     },
   });
 
-  redirect("/host/reservations");
-}
   revalidatePath("/host/reservations");
   revalidatePath("/trips");
 
