@@ -167,10 +167,13 @@ const checkoutSession = await stripe.checkout.sessions.create({
   },
 
   payment_intent_data: {
-    metadata: {
-      bookingId: booking.id,
-    },
+  metadata: {
+    bookingId: booking.id,
   },
+  ...(listing.instantBook
+    ? {}
+    : { capture_method: "manual" }),
+},
 
   success_url: `${origin}/reservations?payment=success`,
   cancel_url: `${origin}/listing/${listing.slug}?payment=cancelled`,
@@ -205,17 +208,43 @@ export async function approveBooking(bookingId: string) {
     redirect("/host/reservations");
   }
 
+  // Request-to-book reservations use a Stripe authorization.
+  // Capture the payment when the host approves.
+  if (
+    !booking.listing.instantBook &&
+    booking.stripePaymentIntentId
+  ) {
+    const paymentIntent = await stripe.paymentIntents.retrieve(
+      booking.stripePaymentIntentId
+    );
+
+    if (paymentIntent.status === "requires_capture") {
+      await stripe.paymentIntents.capture(
+        booking.stripePaymentIntentId
+      );
+    } else if (paymentIntent.status !== "succeeded") {
+      throw new Error(
+        `Payment cannot be captured. Stripe status: ${paymentIntent.status}`
+      );
+    }
+  }
+
   const payoutEligibleAt = new Date(
-  booking.startAt.getTime() + 24 * 60 * 60 * 1000
-);
+    booking.startAt.getTime() + 24 * 60 * 60 * 1000
+  );
+
   await db.booking.update({
     where: { id: bookingId },
     data: {
-  status: "CONFIRMED",
-  payoutEligibleAt,
-},
+      status: "CONFIRMED",
+      stripePaymentStatus: "PAID",
+      paidAt: booking.paidAt ?? new Date(),
+      payoutEligibleAt,
+    },
   });
 
+  redirect("/host/reservations");
+}
   revalidatePath("/host/reservations");
   revalidatePath("/trips");
 
