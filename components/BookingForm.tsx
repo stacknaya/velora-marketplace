@@ -8,7 +8,9 @@ export default function BookingForm({
   action,
   advanceNoticeHr = 0,
   minDays = 1,
-  unavailableRanges = []
+  unavailableRanges = [],
+  basePrice,
+  priceUnit
 }: {
   action: (formData: FormData) => void;
   advanceNoticeHr?: number;
@@ -17,8 +19,9 @@ export default function BookingForm({
     start: string;
     end: string;
   }[];
-}) {
-  const [range, setRange] = useState<DateRange | undefined>();
+  basePrice: number;
+  priceUnit: string;
+}) {  const [range, setRange] = useState<DateRange | undefined>();
 
   const earliestBookingDate = new Date();
   earliestBookingDate.setHours(
