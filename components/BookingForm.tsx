@@ -341,10 +341,18 @@ className="relative w-full"
         </span>
       </div>
 
-      <p className="mt-2 text-xs text-[#172033]/50">
-        Final pricing and applicable fees will be confirmed at checkout.
-      </p>
-    </div>
+      <label className="mt-5 flex cursor-pointer items-start gap-3 border-t border-[#172033]/10 pt-5">
+  <input
+    type="checkbox"
+    checked={termsAccepted}
+    onChange={(e) => setTermsAccepted(e.target.checked)}
+    className="mt-1 h-4 w-4 accent-[#172033]"
+  />
+
+  <span className="text-sm leading-6 text-[#172033]/70">
+    I agree to the rental terms and cancellation policy and confirm that the reservation details above are correct.
+  </span>
+</label>    </div>
   </div>
 )}
         <button
