@@ -342,17 +342,17 @@ className="relative w-full"
   </div>
 </div>
 
-    <div className="mt-5 border-t border-[#172033]/10 pt-4">
-      <div className="flex items-center justify-between">
-        <span className="font-black text-[#172033]">
-          Estimated total
-        </span>
+<div className="mt-5 border-t border-[#172033]/10 pt-4">
+  <div className="flex items-center justify-between">
+    <span className="font-black text-[#172033]">
+      Estimated total
+    </span>
 
-        <span className="text-xl font-black text-[#172033]">
-          ${estimatedTotal.toFixed(2)}
-        </span>
-      </div>
-
+    <span className="text-xl font-black text-[#172033]">
+      ${estimatedTotal.toFixed(2)}
+    </span>
+  </div>
+</div>
       <label className="mt-5 flex cursor-pointer items-start gap-3 border-t border-[#172033]/10 pt-5">
   <input
     type="checkbox"
