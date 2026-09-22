@@ -322,15 +322,25 @@ className="relative w-full"
         </span>
       </div>
 
-      <div className="flex justify-between gap-4">
-        <span className="text-[#172033]/60">
-          ${basePrice.toLocaleString()} / {priceUnit.toLowerCase()}
-        </span>
-        <span className="font-black text-[#172033]">
-          ${estimatedTotal.toFixed(2)}
-        </span>
-      </div>
-    </div>
+      <div className="space-y-2">
+  <div className="flex justify-between gap-4">
+    <span className="text-[#172033]/60">
+      ${basePrice.toFixed(2)} / {priceUnit.toLowerCase()}
+    </span>
+    <span className="font-black text-[#172033]">
+      ${rentalSubtotal.toFixed(2)}
+    </span>
+  </div>
+
+  <div className="flex justify-between gap-4">
+    <span className="text-[#172033]/60">
+      Velora service fee
+    </span>
+    <span className="font-black text-[#172033]">
+      ${veloraGuestFee.toFixed(2)}
+    </span>
+  </div>
+</div>
 
     <div className="mt-5 border-t border-[#172033]/10 pt-4">
       <div className="flex items-center justify-between">
