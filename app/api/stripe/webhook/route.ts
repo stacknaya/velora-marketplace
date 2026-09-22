@@ -85,35 +85,24 @@ export async function POST(request: NextRequest) {
     console.error(
       `Stripe Checkout session completed without payment intent for booking ${booking.id}`
     );
-  } else if (booking.listing.instantBook) {
-    const payoutEligibleAt = new Date(
-      booking.startAt.getTime() + 24 * 60 * 60 * 1000
-    );
-
-    await db.booking.update({
-      where: {
-        id: booking.id,
-      },
-      data: {
-        stripePaymentIntentId: paymentIntentId,
-        stripePaymentStatus: "PAID",
-        paidAt: new Date(),
-        status: "CONFIRMED",
-        payoutEligibleAt,
-      },
-    });
   } else {
-    await db.booking.update({
-      where: {
-        id: booking.id,
-      },
-      data: {
-        stripePaymentIntentId: paymentIntentId,
-        stripePaymentStatus: "AUTHORIZED",
-        status: "PENDING",
-      },
-    });
-  }
+  const payoutEligibleAt = new Date(
+    booking.startAt.getTime() + 24 * 60 * 60 * 1000
+  );
+
+  await db.booking.update({
+    where: {
+      id: booking.id,
+    },
+    data: {
+      stripePaymentIntentId: paymentIntentId,
+      stripePaymentStatus: "PAID",
+      paidAt: new Date(),
+      status: "CONFIRMED",
+      payoutEligibleAt,
+    },
+  });
+}
 }
       }
         }
