@@ -130,7 +130,7 @@ const estimatedRefund =
                           </p>
 
                           <p className="mt-1 text-2xl font-black">
-                            ${booking.total.toLocaleString()}
+                            ${booking.total.toFixed(2)}
                           </p>
                         </div>
                       </div>
