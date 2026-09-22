@@ -170,9 +170,6 @@ const checkoutSession = await stripe.checkout.sessions.create({
   metadata: {
     bookingId: booking.id,
   },
-  ...(listing.instantBook
-    ? {}
-    : { capture_method: "manual" }),
 },
 
   success_url: `${origin}/reservations?payment=success`,
