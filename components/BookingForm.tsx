@@ -364,10 +364,11 @@ className="relative w-full"
   <span className="text-sm leading-6 text-[#172033]/70">
     I agree to the rental terms and cancellation policy and confirm that the reservation details above are correct.
   </span>
-</label>   
-    </div>
+</label>
+</div>
+</div>
 )}
-        {!showReview ? (
+    {!showReview ? (
   <button
     type="button"
     onClick={() => setShowReview(true)}
