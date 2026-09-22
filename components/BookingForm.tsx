@@ -68,7 +68,9 @@ const [termsAccepted, setTermsAccepted] = useState(false);
     Boolean(range?.from && range?.to) &&
     bookingDays >= minDays;
     
-    const estimatedTotal = bookingDays * basePrice;
+    const rentalSubtotal = bookingDays * basePrice;
+const veloraGuestFee = rentalSubtotal * 0.10;
+const estimatedTotal = rentalSubtotal + veloraGuestFee;
 
   return (
     <form action={action}>
