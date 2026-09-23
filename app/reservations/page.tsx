@@ -87,7 +87,7 @@ if (hoursUntilTrip >= 168) {
 }
 
 const estimatedRefund =
-  booking.total * (refundPct / 100);
+  booking.subtotal * (refundPct / 100);
 
                 return (
                   <div
