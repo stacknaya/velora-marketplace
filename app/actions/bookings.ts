@@ -411,8 +411,8 @@ export async function approveCancellationRequest(bookingId: string) {
   }
 
   const refundAmount = Math.round(
-    booking.total * (refundPct / 100) * 100
-  );
+  booking.subtotal * (refundPct / 100) * 100
+);
 
   if (refundAmount <= 0) {
     throw new Error("Invalid refund amount.");
