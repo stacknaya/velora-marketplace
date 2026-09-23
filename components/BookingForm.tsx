@@ -353,6 +353,17 @@ className="relative w-full"
     </span>
   </div>
 </div>
+<div className="mt-4 rounded-xl bg-[#f7f3ec] p-4 text-sm text-[#172033]/80">
+  <p className="font-black text-[#172033]">
+    Cancellation policy
+  </p>
+  <p className="mt-1 leading-6">
+    Velora's service fee is non-refundable. Any additional cancellation
+    deduction is calculated from the rental subtotal based on how close
+    the cancellation is to the reservation start date.
+  </p>
+</div>
+      
       <label className="mt-5 flex cursor-pointer items-start gap-3 border-t border-[#172033]/10 pt-5">
   <input
     type="checkbox"
