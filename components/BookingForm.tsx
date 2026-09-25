@@ -358,10 +358,12 @@ className="relative w-full"
     Cancellation policy
   </p>
   <p className="mt-1 leading-6">
-    Velora's service fee is non-refundable. Any additional cancellation
-    deduction is calculated from the rental subtotal based on how close
-    the cancellation is to the reservation start date.
-  </p>
+  Velora&apos;s service fee is non-refundable. For the rental subtotal,
+  cancellations made 7 or more days before the reservation receive a 90%
+  refund; cancellations made 48 hours to 7 days before receive an 80%
+  refund; cancellations made less than 48 hours before receive a 50%
+  refund. No refund is provided after the reservation start time.
+</p>
 </div>
       
       <label className="mt-5 flex cursor-pointer items-start gap-3 border-t border-[#172033]/10 pt-5">
