@@ -75,7 +75,9 @@ const estimatedTotal = rentalSubtotal + veloraGuestFee;
   return (
     <form action={action}>
       <div className="mt-6 rounded-[1.8rem] border border-[#172033]/10 bg-white p-6 shadow-sm">
-
+{!showReview && (
+  <>
+        
         {/* Compact calendar guide */}
         <div className="rounded-[1.6rem] border border-[#172033]/10 bg-[#fffaf1] p-5">
           <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#9a7a45]">
@@ -269,6 +271,18 @@ className="relative w-full"
           </div>
         )}
 
+        
+
+        {range?.from &&
+          range?.to &&
+          !minimumBookingMet && (
+            <p className="mt-3 text-sm font-semibold text-red-600">
+              Minimum booking is {minDays} day
+              {minDays === 1 ? "" : "s"}.
+            </p>
+          )}
+      </>
+)}
         <input
           type="hidden"
           name="startAt"
@@ -280,15 +294,6 @@ className="relative w-full"
           name="endAt"
           value={formatDate(range?.to)}
         />
-
-        {range?.from &&
-          range?.to &&
-          !minimumBookingMet && (
-            <p className="mt-3 text-sm font-semibold text-red-600">
-              Minimum booking is {minDays} day
-              {minDays === 1 ? "" : "s"}.
-            </p>
-          )}
 
         {showReview && range?.from && range?.to && (
   <div className="mt-6 rounded-[1.6rem] border border-[#c9a96e]/40 bg-[#fffaf1] p-5">
@@ -395,13 +400,26 @@ className="relative w-full"
     Next
   </button>
 ) : (
+  <div className="mt-6 space-y-3">
   <button
     type="submit"
     disabled={!termsAccepted}
-    className="mt-6 w-full rounded-[1.2rem] bg-[#172033] px-5 py-4 text-base font-black text-white transition hover:bg-[#24304a] disabled:cursor-not-allowed disabled:opacity-40"
+    className="w-full rounded-[1.2rem] bg-[#172033] px-5 py-4 text-base font-black text-white transition hover:bg-[#24304a] disabled:cursor-not-allowed disabled:opacity-40"
   >
-    Confirm & Pay ${estimatedTotal.toFixed(2)}
+    Continue to payment — ${estimatedTotal.toFixed(2)}
   </button>
+
+  <button
+    type="button"
+    onClick={() => {
+      setShowReview(false);
+      setTermsAccepted(false);
+    }}
+    className="w-full rounded-[1.2rem] border border-[#172033]/15 bg-white px-5 py-4 text-base font-black text-[#172033] transition hover:bg-[#fffaf1]"
+  >
+    Back to dates
+  </button>
+</div>
 )}
       </div>
     </form>
