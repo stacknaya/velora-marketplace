@@ -358,6 +358,40 @@ className="relative w-full"
     </span>
   </div>
 </div>
+      <div className="mt-4 rounded-xl border border-[#172033]/10 bg-white p-4 text-sm text-[#172033]/80">
+  <p className="font-black text-[#172033]">
+    Rental terms
+  </p>
+
+  <div className="mt-2 space-y-2 leading-6">
+    <p>
+      • The guest is responsible for using the rental responsibly and only
+      for its intended purpose.
+    </p>
+
+    <p>
+      • The rental must be returned on time and in substantially the same
+      condition in which it was received, excluding normal wear.
+    </p>
+
+    <p>
+      • The guest may be responsible for loss, damage, excessive cleaning,
+      late-return charges, or other amounts permitted under the rental
+      agreement.
+    </p>
+
+    <p>
+      • The guest must follow any listing-specific rules, eligibility
+      requirements, safety instructions, and applicable laws.
+    </p>
+
+    <p>
+      • By continuing to payment, the guest confirms that the reservation
+      details are correct and agrees to these rental terms and the
+      cancellation policy below.
+    </p>
+  </div>
+</div>
 <div className="mt-4 rounded-xl bg-[#f7f3ec] p-4 text-sm text-[#172033]/80">
   <p className="font-black text-[#172033]">
     Cancellation policy
